@@ -1,0 +1,18 @@
+/* 
+  선택자
+  id 선택자 #
+  class 선택자 .
+  태그 선택자 태그명(div, h 등)
+  */
+
+table,
+th,
+td {
+  border: 1px solid #222;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 20px;
+}
