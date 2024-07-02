@@ -16,7 +16,7 @@ public class test2 {
 		int b = sc.nextInt();
 		System.out.println("두 번째 숫자 = " + b);
 		
-		int gcd = test2.gcd(a, b);
+		int gcd = gcd(a, b);
 		System.out.println("최대공약수는 " + gcd + "입니다.");
 	}
 	public static int gcd(int a, int b) {
