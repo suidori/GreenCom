@@ -18,6 +18,7 @@ public class test2 {
 		
 		int gcd = gcd(a, b);
 		System.out.println("최대공약수는 " + gcd + "입니다.");
+		sc.close();
 	}
 	public static int gcd(int a, int b) {
 		while (b != 0) {

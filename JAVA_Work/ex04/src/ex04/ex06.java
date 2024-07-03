@@ -21,5 +21,6 @@ public class ex06 {
 		} else if (num > 20) {
 			System.out.println("20 초과");
 		}
+		sc.close();
 	}
 }
