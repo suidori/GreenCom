@@ -22,9 +22,9 @@ public class quiz1 {
 		int num2 = n + 1;
 		int stack2 = 0;
 		temp = num2;
-		while (stack1 != stack2) {
+		while (stack1 != stack2) { //스택1과 2 비교
 			stack2 = 0;
-			while (temp != 0) {
+			while (temp != 0) { //스택2 계산
 
 				if ((temp % 2) != 0) {
 					stack2++;
@@ -32,7 +32,7 @@ public class quiz1 {
 				}
 				temp = temp >> 1;
 			}
-			temp = ++num2;
+			temp = ++num2; //다음숫자
 		}
 		sc.close();
 	}
