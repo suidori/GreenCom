@@ -33,18 +33,16 @@ public class Ex10 {
 	}
 	
 	public static void test3() {
-		int result = 0;
 		int sum = 0;
-		for (int i = 0; sum<100; i++) {
-			if(i%2==0) {
-				sum -= i;
+		int i = 1;
+			while(true) {
+				sum += i++;
+				if(sum>=100) {
+					break;
+				}
+				sum -= i++;
 			}
-			else {
-				sum +=i;
-			}
-			result = i;
-		}
-			System.out.println(result);
+			System.out.println(i-1);
 	}
 	
 	public static void test4() {

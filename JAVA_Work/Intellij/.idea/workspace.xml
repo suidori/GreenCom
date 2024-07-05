@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="86742c1b-ebee-4c68-bb48-c6ee0fbb010a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/JAVA_Work.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../eclipse/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../eclipse/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day01/Ex01.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day01/Ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/src/ex01/Ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/src/ex01/Ex02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/src/ex01/Ex03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/src/ex02/Ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/src/ex02/Ex02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex01/src/ex02/Ex03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex04.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex05.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex06.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex07.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex02/src/ex02/Ex08.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/Ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex04.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex05.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex06.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex07.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex08.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex09.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex10.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex11.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/ex12.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/quiz01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/test1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex03/src/ex03/test2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/ex02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/ex03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/ex05.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/ex06.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/quiz1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/test1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/test2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/test3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex04/src/ex04/test4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/src/ex05/ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/src/ex05/ex02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/src/ex05/ex03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/src/ex05/ex04.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/src/ex05/ex05.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex05/src/ex05/ex06.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex04.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex05.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex06.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex07.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex08.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex09.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Ex10.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex06/src/ex06/Solution.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2inzvRT8WG1zStdxldOMaZvqI6s" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Ex01.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Work/JAVA_Work/Intellij/Ex01",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Ex01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <selectedOptions>
+        <option name="environmentVariables" visible="false" />
+      </selectedOptions>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Intellij" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Intellij" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Ex01" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86742c1b-ebee-4c68-bb48-c6ee0fbb010a" name="Changes" comment="" />
+      <created>1720141360750</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720141360750</updated>
+    </task>
+    <servers />
+  </component>
+</project>
