@@ -71,3 +71,12 @@
         .prevnext>#slider-next{
             float: right;
         } */
+
+        .sub-heading{
+            display: flex;
+            justify-content: space-between;
+        }
+        .sub-heading > div{
+            width: 280px;
+            background-color: aqua;
+        }

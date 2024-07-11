@@ -37,6 +37,7 @@ public class TTT {
             if (result(g, room, draw)) break;
         }
         System.out.println("게임을 종료합니다.");
+        sc.close();
     }
 
     public static boolean result(Game g, int[][] room, int draw) {
@@ -53,3 +54,5 @@ public class TTT {
     }
 
 }
+
+//TTT main code
