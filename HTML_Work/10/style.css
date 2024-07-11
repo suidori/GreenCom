@@ -73,10 +73,11 @@
         } */
 
         .sub-heading{
+            margin: 2rem 0;
             display: flex;
             justify-content: space-between;
         }
         .sub-heading > div{
             width: 280px;
-            background-color: aqua;
+            /* background-color: aqua; */
         }
