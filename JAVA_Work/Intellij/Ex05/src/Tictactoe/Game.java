@@ -47,7 +47,7 @@ public class Game {
         }
     }
 
-    public boolean ipcheck(int input, int[][] room) {
+    public boolean ipCheck(int input, int[][] room) {
         if (input < 1 || input > 9) {
             return false;
         }

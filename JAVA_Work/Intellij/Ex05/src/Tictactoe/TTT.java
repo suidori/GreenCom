@@ -22,7 +22,7 @@ public class TTT {
         }
         while (true) {
             System.out.println("\n플레이어의 턴입니다.");
-            if (!g.ipcheck(sc.nextInt(), room)) {
+            if (!g.ipCheck(sc.nextInt(), room)) {
                 System.out.println("다시 입력하세요.");
                 continue;
             }

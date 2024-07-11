@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+        $(".slider").bxSlider({
+            nextSelector: '#slider-next',
+            prevSelector: '#slider-prev',
+            nextText: 'Go next →',
+            prevText: '← Go back'
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 class="logo">Logo</h1>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#" class="sign">Sign in</a></li>
+                    <li><a href="#" class="register">Register</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="prevnext">
+            <button id="slider-prev">prev</button>
+            <button id="slider-next">next</button>
+        </div>
+        <div class="slide" style="background-color: white;">
+            <div class="slider">
+                <div>I am a first slide.<img src="../Image/blobcat3.png" alt="blobcat3"></div>
+                <div>I am a second slide.<img src="../Image/blobcatdisk.jpg" alt="blobdisk"></div>
+                <div>I am a third slide.<img src="../Image/blobcateat.png" alt="blobeat"></div>
+                <div>I am a fourth slide.<img src="../Image/blobcatsleep.png" alt="blobsleep"></div>
+            </div>
+        </div>
+        <div class="heading">
+            <h1>Heading</h1>
+            <h2>Subheading</h2>
+        </div>
+    </div>
+</body>
+
+</html>
