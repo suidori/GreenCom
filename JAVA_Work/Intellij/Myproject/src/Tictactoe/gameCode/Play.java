@@ -9,7 +9,7 @@ public class Play {
         int[][] room = new int[3][3]; //2차원 배열 선언(3*3 틱택토 그리드)
         Scanner sc = new Scanner(System.in);
         int[] draw = new int[1]; //무승부 카운트를 위한 참조변수 선언
-
+        g.view(room);//시작 전에 한번 보여줌
         if (g.start()) { //랜덤 함수를 이용해 선공과 후공을 결정
             System.out.println("선공입니다.");
         } else {
@@ -24,7 +24,6 @@ public class Play {
             g.comTurn(room, draw); //컴퓨터의 턴(컴퓨터는 잘못된 값을 입력하지 않는다.)
             if (result(g, room, draw, result)) break; //게임 완료 조건 달성 시 break
         }
-        sc.close();
     }
 
     public static boolean result(Game g, int[][] room, int[] draw, int[] result) {
