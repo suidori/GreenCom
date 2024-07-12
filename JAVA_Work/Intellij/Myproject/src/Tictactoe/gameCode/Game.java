@@ -1,4 +1,4 @@
-package Tictactoe;
+package Tictactoe.gameCode;
 
 public class Game {
 
@@ -6,7 +6,7 @@ public class Game {
        return (((int)(Math.random()*2)==0));
             }
 
-    public void view(int[][] room) {
+    public static void view(int[][] room) {
         char player = 'O';
         char com = 'X';
         int k = 1;
@@ -30,7 +30,7 @@ public class Game {
         System.out.println(" ");
     }
 
-    public void com(int[][] room) {
+    public static void com(int[][] room) {
         int input = (int) (Math.random() * 9 + 1);
         int k = 1;
         for (int i = 0; i < 3; i++) {
@@ -47,7 +47,7 @@ public class Game {
         }
     }
 
-    public boolean ipCheck(int input, int[][] room) {
+    public static boolean ipCheck(int input, int[][] room) {
         if (input < 1 || input > 9) {
             return false;
         }
@@ -65,12 +65,30 @@ public class Game {
         }
     }
 
+    public static void comTurn(int[][] room, int[] draw){
+        System.out.println("\n컴퓨터의 턴입니다.");
+        com(room);
+        view(room);
+        draw[0]++;
+    }
+
+    public static boolean playerTurn(int input, int[][] room, int[] draw){
+        if (!ipCheck(input, room)) {
+            System.out.println("다시 입력하세요.");
+            return false;
+        }
+        view(room);
+        draw[0]++;
+        return true;
+    }
+
+
     public int result(int[][] room) {
         for (int i = 0; i < 3; i++) {
             if((room[0][i]==room[1][i])&&(room[1][i]==room[2][i])&&(room[0][i] != 0 ))
-                return room[i][0];
-            if((room[i][0]==room[i][1])&&(room[i][1]==room[i][2])&&(room[i][0] != 0 ))
                 return room[0][i];
+            if((room[i][0]==room[i][1])&&(room[i][1]==room[i][2])&&(room[i][0] != 0 ))
+                return room[i][0];
         }
         if ((room[0][0] == room[1][1]) && (room[2][2] == room[1][1]) && (room[0][0]!=0))
             return room[0][0];
@@ -82,4 +100,4 @@ public class Game {
 
 }
 
-//TTT gameplay code
+//Play gameplay code
