@@ -19,7 +19,7 @@ public class Main {
         while (input.replay) {
             Play.play(state, mainScan); //게임플레이
             System.out.println("다시 플레이하시겠습니까? (y/n)");
-            while (input.replay(mainScan.nextLine())) ;//y나 n을 받을 때까지 반복.
+            while (input.replay(mainScan.next())) ;//y나 n을 받을 때까지 반복.
         }
 
         //종료
