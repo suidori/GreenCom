@@ -1,5 +1,7 @@
 package Tictactoe.gameCode;
 
+import java.util.Scanner;
+
 public class Progress {
 
     public static void comTurn(Game g) {
@@ -9,14 +11,14 @@ public class Progress {
         g.draw++; // 무승부 카운트 올림
     }
 
-    public static boolean playerTurn(Game g, int input) {
+    public static void playerTurn(Game g, Scanner sc) {
+        int input = sc.nextInt();
         if (!g.ipCheck(input)) { //틀린 값을 입력했다면
             System.out.println("다시 입력하세요."); //경고문 출력 후
-            return false; //false
+            playerTurn(g, sc);//반복
         }
         Progress.view(g.room); //옳은 값이라면 결과 출력
         g.draw++; //무승부 카운트 올림
-        return true;
     }
 
     public static void view(int[][] room) { //게임 진행 상황 출력 함수
