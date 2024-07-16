@@ -1,11 +1,14 @@
 package Tictactoe.gameCode;
 
+import java.util.Scanner;
+
 public class Game {
     int[][] room = new int[3][3]; //2차원 배열 선언(3*3 틱택토 그리드)
     int draw = 0; //무승부 카운트를 위한 변수 선언
 
     public void com() { //랜덤한 칸을 컴퓨터의 칸으로 만드는 함수
         int input = (int) (Math.random() * 9 + 1); //1~9 사이의 랜덤한 수 출력
+
         int k = 1;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -14,29 +17,37 @@ public class Game {
                         room[i][j] = 2;//컴퓨터의 칸으로 만든다
                     } else {//빈칸이 아니라면
                         com();//다시 시도한다
-                    }
-                }
-            }
+                    }}}
             k += 2;
         }
     }
 
-    public boolean ipCheck(int input) { //플레이어의 값을 입력받는 함수
-        if (input < 1 || input > 9) { //1~9의 숫자가 아니라면
-            return false; //잘못된 값이라는 결과 출력
+    public void player(Scanner sc) { //플레이어의 값을 입력받는 함수
+        char[] check = sc.next().toCharArray();
+        if (check.length != 1) {
+            System.out.println("1 부터 9 까지, 숫자만 입력하세요.");
+            player(sc);
+            return;
         }
+        int input = (int) check[0] - 48;
+
         int k = 1;
-        for (int i = 0; ; i++) {
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (input == (i + j + k)) { //입력받은 값과 같은 자리를 찾아서
-                    if (room[i][j] == 0) { // 빈칸이라면
+                    if (room[i][j] == 0) { // 빈 칸이라면
                         room[i][j] = 1; // 플레이어의 칸으로 만듬
-                        return true; //옳은 값을 입력함
-                    } else return false; // 빈칸이 아니라면 틀린 값을 입력한것임
+                    } else {//빈 칸이 아니라면
+                        System.out.println("비어 있는 칸을 입력하세요.");
+                        player(sc);
+                    }
+                    return;
                 }
             }
             k += 2;//2칸씩 뛰어넘음
         }
+        System.out.println("1 부터 9 까지, 숫자만 입력하세요.");
+        player(sc);
     }
 
     public int result() {
