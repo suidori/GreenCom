@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: lightgreen;
+            width: 1140px;
+            margin: 0 auto;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 15px 25px;
+            color: #000;
+            line-height: 100px;
+            text-transform: uppercase;
+            border: 1px solid lightgreen;
+        }
+
+        .active {
+            border: 1px solid orange;
+        }
+
+        a:hover {
+            border: 1px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <ul>
+            <li><a href="#" id="menu1" class="active">menu1</a></li>
+            <li><a href="#" id="menu2">MENU2</a></li>
+            <li><a href="#" id="menu3">MENU3</a></li>
+            <li><a href="#" id="menu4">MENU4</a></li>
+            <li><a href="#" id="menu5">MENU5</a></li>
+            <li><a href="#" id="menu6">MENU6</a></li>
+        </ul>
+    </div>
+    <div>
+        <div id="div1">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur beatae vitae aliquid nesciunt in
+                maiores ab laborum rerum impedit nemo earum molestias, commodi illum omnis, labore, architecto deleniti!
+                Incidunt, sunt.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nobis sit eveniet quod dolores dolor
+                perferendis accusantium, atque hic vero. Esse et nam, ratione repudiandae hic suscipit velit porro
+                molestias?</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam exercitationem qui debitis tempora
+                delectus repellat, laudantium suscipit consequuntur cumque, hic omnis similique voluptates placeat? Non
+                a iste asperiores ut earum.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, eum. Itaque dolore laborum veritatis at
+                nobis laboriosam enim delectus culpa explicabo atque? Consectetur deleniti quam, recusandae doloremque
+                rem in? Culpa.</p>
+        </div>
+        <div id="div2">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero totam doloribus facilis animi est. Illum
+                sed tenetur officia illo veritatis et, eum mollitia quo voluptas quos velit nam, temporibus facere?</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus fugiat vel magnam veniam corrupti quo sed
+                natus ea sit! Cum officia earum voluptatibus quam facere aut iure reprehenderit nobis enim.</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo vel dignissimos, itaque quas minima
+                voluptatem adipisci doloribus commodi sed unde aspernatur quidem eligendi dolorum assumenda cupiditate
+                maxime, necessitatibus nulla? Numquam!</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quos sed recusandae sequi amet
+                reprehenderit. Sit tempore, quasi excepturi fugit, odio, voluptatum assumenda error inventore animi
+                molestias accusantium iure dolore!</p>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () { 
+        $('#menu1').on('mouseenter', function(){ $('#div1').fadeIn(); } );
+        $('#menu1').on('mouseout', function(){ $('#div1').fadeOut(); } );
+        $('#menu2').on('mouseenter', function(){ $('#div2').fadeIn(); } );
+        $('#menu2').on('mouseout', function(){ $('#div2').fadeOut(); } );
+    } );
+</script>

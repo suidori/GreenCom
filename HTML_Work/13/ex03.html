@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            background-color: lightgray;
+            position:relative;
+            height: 300px;
+        }
+        .aa{
+            position: absolute;
+            bottom: 0;
+            background-color: lightgreen;
+            z-index: 95;
+        }
+        .bb{
+            position: absolute;
+            background-color: red;
+            z-index: 99;
+        }
+        .cc{
+            background-color: orange;
+            width: 300px;
+            margin: 0 auto;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="aa">
+            <h1>div</h1>
+        </div>
+        <div class="bb">
+            <h2>div</h2>
+        </div>
+        <div class="cc">
+            <h3>div</h3>
+        </div>
+    </div>
+</body>
+</html>

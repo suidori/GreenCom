@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            background-color: gray;
+            height: 100px;
+        }
+
+        .content {
+            background-color: lightgray;
+            overflow: hidden;
+        }
+
+        .leftside {
+            float: left;
+            background-color: lightgreen;
+            height: 500px;
+            
+        }
+        .center{
+            float: left;
+        }
+        .rightside{
+            float: right;
+            background-color: lightgreen;
+            height: 500px;
+        }
+        .footer {
+            background-color: gray;
+            height: 100px;
+        }
+        .myfix{
+            position: fixed;
+            height: 100px;
+            width: 100px;
+            background-color: red;
+            bottom: 30px;
+            right: 30px;
+            border-radius: 50px;
+        }
+        .myst{
+            position: sticky;
+            top:0;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>제목</h1>
+        </div>
+        <div class="myst"><h2>여기 고정</h2></div>
+        <div class="content">
+            <div class="leftside">
+                <h2>왼쪽</h2>
+            </div>
+            <div class="center">
+                <h2>본문</h2>
+            </div>
+            <div class="rightside">
+                <h2>오른쪽</h2>
+            </div>
+        </div>
+        <div class="footer">
+            <h1>푸터</h1>
+        </div>
+    </div>
+    <div class="myfix"></div>
+</body>
+
+</html>
