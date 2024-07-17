@@ -17,24 +17,40 @@ public class Game {
                         room[i][j] = 2;//컴퓨터의 칸으로 만든다
                     } else {//빈칸이 아니라면
                         com();//다시 시도한다
-                    }}}
+                    }
+                }
+            }
             k += 2;
         }
     }
 
     public void player(Scanner sc) { //플레이어의 값을 입력받는 함수
-        char[] check = sc.next().toCharArray();
-        if (check.length != 1) {
-            System.out.println("1 부터 9 까지, 숫자만 입력하세요.");
+        String str = sc.nextLine();
+        if (str.isEmpty()) {
+            System.out.println("1~9 사이의 숫자를 입력하세요.");
             player(sc);
             return;
         }
-        int input = (int) check[0] - 48;
+        String check1 = Character.toString(str.charAt(0));
+        if (!check1.matches("[1-9]")) {
+            System.out.println("1~9 사이의 숫자를 입력하세요.");
+            player(sc);
+            return;
+        }
+
+        if (str.length() > 1) {
+            String check2 = Character.toString(str.charAt(1));
+            if (check2.matches("[0-9]")) {
+                System.out.println("1~9 사이의 숫자를 입력하세요.");
+                player(sc);
+                return;
+            }
+        }
 
         int k = 1;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (input == (i + j + k)) { //입력받은 값과 같은 자리를 찾아서
+                if (check1.matches("" + (i + j + k))) { //입력받은 값과 같은 자리를 찾아서
                     if (room[i][j] == 0) { // 빈 칸이라면
                         room[i][j] = 1; // 플레이어의 칸으로 만듬
                     } else {//빈 칸이 아니라면
@@ -46,8 +62,6 @@ public class Game {
             }
             k += 2;//2칸씩 뛰어넘음
         }
-        System.out.println("1 부터 9 까지, 숫자만 입력하세요.");
-        player(sc);
     }
 
     public int result() {

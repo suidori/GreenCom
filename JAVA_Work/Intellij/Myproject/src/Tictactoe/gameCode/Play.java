@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Play {
     public void play(Scanner sc, Count count) {
         System.out.println("게임을 시작합니다.");
-        Game g = new Game(); //Game 클래스
+        Game g = new Game(); //GameBoard 클래스
         Progress p = new Progress();
         if ((int) (Math.random() * 2) == 0) { //랜덤 함수를 이용해 선공과 후공을 결정
             System.out.println("선공입니다.");
