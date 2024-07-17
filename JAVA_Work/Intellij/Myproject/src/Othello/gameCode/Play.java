@@ -3,23 +3,43 @@ package Othello.gameCode;
 import java.util.Scanner;
 
 public class Play {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public void play(Scanner sc) {
         GameBoard game = new GameBoard();
         CheckRoom checkRoom = new CheckRoom();
-        Input turn = new Input();
+        Turn turn = new Turn();
         Flip flip = new Flip();
-
-        while(true) {
-            checkRoom.checkWhite(game.room);
-            game.printWhite(checkRoom.white);
-            turn.playerTurn(game.room, checkRoom.inputList, sc, flip);
-
+        ResultCount resultCount = new ResultCount();
+        CheckState checkState = new CheckState();
+        System.out.println("게임을 시작합니다.");
+        if ((int) (Math.random() * 2) == 0) {
+            System.out.println("선공입니다.");
+            } else {
+            System.out.println("후공입니다.");
             checkRoom.checkBlack(game.room);
             game.printBlack(checkRoom.black);
             turn.comTurn(game.room, checkRoom.inputList, flip);
         }
 
+        while (true) {
+            checkRoom.checkWhite(game.room);
+            if (!checkRoom.inputList.isEmpty()) {
+                game.printWhite(checkRoom.white);
+                System.out.println("플레이어의 턴입니다.");
+                turn.playerTurn(game.room, checkRoom.inputList, sc, flip);
+            }
+
+            if(resultCount.doCount(checkState, game.room)) break;
+
+            checkRoom.checkBlack(game.room);
+            if (!checkRoom.inputList.isEmpty()) {
+                game.printBlack(checkRoom.black);
+                System.out.println("컴퓨터의 턴입니다.");
+                turn.comTurn(game.room, checkRoom.inputList, flip);
+            }
+
+            if(resultCount.doCount(checkState, game.room)) break;
+
+        }
 
     }
     //게임 시작

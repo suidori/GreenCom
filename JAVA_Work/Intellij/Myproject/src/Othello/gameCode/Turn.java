@@ -3,7 +3,7 @@ package Othello.gameCode;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Input {
+public class Turn {
 
     public void comTurn(int[][] room, ArrayList<Integer> list, Flip flip) {
         int comInput = (int) (Math.random() * list.size());

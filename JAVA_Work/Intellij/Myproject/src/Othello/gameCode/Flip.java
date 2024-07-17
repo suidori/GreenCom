@@ -45,17 +45,14 @@ public class Flip {
                 return;
                 }
           else {
-              coordinate[cycle] = new int[]{down + y, right + x};
-                System.out.println(coordinate[cycle][0]+ " " + coordinate[cycle][1]);
+              coordinate[cycle] = new int[]{down, right};
               check(room, down+y, right+x, color, y, x, cycle+1);
           }
           return;
         }
         else{
-            System.out.println("doColor");
             room[down][right] = color;
             for (int i = 0; i < cycle; i++) {
-                System.out.println("setColor");
                 room[coordinate[i][0]][coordinate[i][1]] = color;
             }
         }

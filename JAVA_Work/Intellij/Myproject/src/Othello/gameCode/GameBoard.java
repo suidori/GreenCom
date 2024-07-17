@@ -12,8 +12,8 @@ public class GameBoard {
     }
 
     public void printWhite(boolean[][] white) { //게임 진행 상황 출력 함수
-        char player = '○'; //플레이어의 기호
-        char com = '●'; //컴퓨터의 기호
+        char player = 'O'; //플레이어의 기호
+        char com = 'X'; //컴퓨터의 기호
         int k = 1; //숫자 출력을 위한 변수
         System.out.println("\n=========================================="); // 가로선 출력
         for (int i = 0; i < 8; i++) {
@@ -29,7 +29,7 @@ public class GameBoard {
                     System.out.print(" " + com + " ");//X를 출력
 
                 } else {//둘 다 아니면(기본값이라면)
-                    System.out.print((white[i][j]==true) ? " "+(i+j+k)+" " : "     ");
+                    System.out.print((white[i][j]) ? " "+(i+j+k) : "     ");
                     }
                 if (j == 7) break; //마지막 줄에는 세로선 출력하지 않음
                 System.out.print(" | "); //기호나 숫자 중간에 세로선 설치
@@ -43,7 +43,7 @@ public class GameBoard {
     }
     public void printBlack(boolean[][] black) { //게임 진행 상황 출력 함수
         char player = '○'; //플레이어의 기호
-        char com = '●'; //컴퓨터의 기호
+        char com = 'X'; //컴퓨터의 기호
         int k = 1; //숫자 출력을 위한 변수
         System.out.println("\n=========================================="); // 가로선 출력
         for (int i = 0; i < 8; i++) {
@@ -59,7 +59,7 @@ public class GameBoard {
                     System.out.print(" " + com + " ");//X를 출력
 
                 } else {//둘 다 아니면(기본값이라면)
-                    System.out.print((black[i][j]==true) ? " "+(i+j+k)+" " : "     ");
+                    System.out.print((black[i][j]) ? ""+(i+j+k) : "     ");
                 }
                 if (j == 7) break; //마지막 줄에는 세로선 출력하지 않음
                 System.out.print(" | "); //기호나 숫자 중간에 세로선 설치

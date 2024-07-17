@@ -19,6 +19,8 @@ public class CheckRoom {
             for (int j = 0; j < 8; j++) {
                 if (room[i][j] == 1) {//백돌이면
                     for (int k = 0; k < 8; k++) { //상하좌우 순서대로
+                        if(i+y[k]<0||j+x[k]<0) continue;
+                        if(i+y[k]>7||j+x[k]>7) continue;
                         if (room[i + y[k]][j + x[k]] == 2) { //흑돌이면
                             //그쪽 방향 체크
                             check(room, i + y[k], j + x[k], 1, y[k], x[k]);
@@ -38,6 +40,8 @@ public class CheckRoom {
             for (int j = 0; j < 8; j++) {
                 if (room[i][j] == 2) {//흑돌이면
                     for (int k = 0; k < 8; k++) { //상하좌우 순서대로
+                        if(i+y[k]<0||j+x[k]<0) continue;
+                        if(i+y[k]>7||j+x[k]>7) continue;
                         if (room[i + y[k]][j + x[k]] == 1) { //백돌이면
                             //그쪽 방향 체크
                             check(room, i + y[k], j + x[k], 2, y[k], x[k]);
@@ -71,8 +75,6 @@ public class CheckRoom {
                 return;
             }
             check(room, down + y, right + x, color, y, x);
-        } else {
-            return;
         }
     }
 }
