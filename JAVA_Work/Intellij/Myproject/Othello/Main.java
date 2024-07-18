@@ -28,5 +28,6 @@ import java.util.Scanner;
             System.out.println("게임이 종료되었습니다.");
             resultCount.printResult(); //결과 출력
             sc.close();
+            
         }
     }
