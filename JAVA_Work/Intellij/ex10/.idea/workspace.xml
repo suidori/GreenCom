@@ -5,63 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad6a5f35-59c0-4254-978f-1bf9fca31168" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/../Myproject/Othello/Othello.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/Othello.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Myproject/Tictactoe/Tictactoe.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Myproject/Tictactoe/out/production/Tictactoe/Tictactoe/Tictactoe.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ex10.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ex01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Test01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aa/Box.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aa/BusinessMan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aa/FriendMan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aa/Man.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/aa/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.idea/artifacts/Myproject_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/Myproject.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/Othello.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/CheckRoom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/CheckState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/Flip.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/GameBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/Input.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/Play.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/ResultCount.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Othello/gameCode/Turn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/Tictactoe.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/gameCode/Count.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/gameCode/Game.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/gameCode/Input.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/gameCode/Play.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/src/Tictactoe/gameCode/Progress.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Myproject/제목 없는 다이어그램.drawio" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/CheckState.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/CheckState.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,10 +52,11 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Work/JAVA_Work/Intellij/ex10",
     "project.structure.last.edited": "모듈",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "애플리케이션.Ex01.executor": "Run",
     "애플리케이션.Test01 (1).executor": "Run",
     "애플리케이션.Test01 (2).executor": "Run",
