@@ -5,6 +5,7 @@ public class GameBoard {
 
 
     public GameBoard() {
+        //게임판 초기화
         room[3][3] = 1;
         room[4][3] = 2;
         room[3][4] = 2;

@@ -2,7 +2,7 @@ package Othello.gameCode;
 
 import java.util.Scanner;
 
-public class TypeCheck {
+public class Input {
     public boolean replay = true;
 
     public void rule(Scanner sc) {
