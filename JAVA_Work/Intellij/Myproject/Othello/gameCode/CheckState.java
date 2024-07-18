@@ -24,7 +24,6 @@ public class CheckState {
             if (player == com) { //백돌과 흑돌의 갯수가 같으면 무승부
                 return 3;
             }
-            System.out.printf("플레이어: %d개, 컴퓨터: %d개\n", player, com);
             return (player > com) ? 1 : 2; //무승부가 아니라면 더 많은 쪽의 승리
         }
         return 0; //승, 패, 무승부가 결정되지 않으면 계속 진행

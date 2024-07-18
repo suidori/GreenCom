@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad6a5f35-59c0-4254-978f-1bf9fca31168" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/gameCode/CheckState.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/gameCode/CheckState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/gameCode/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/gameCode/Play.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/gameCode/ResultCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/gameCode/ResultCount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/CheckState.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/CheckState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/Play.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/Play.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/ResultCount.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Myproject/Othello/out/production/Othello/Othello/gameCode/ResultCount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test01.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test01.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,14 +62,22 @@
     "project.structure.last.edited": "모듈",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Java",
+    "애플리케이션.ArrayIndex.executor": "Run",
     "애플리케이션.Ex01.executor": "Run",
     "애플리케이션.Test01 (1).executor": "Run",
     "애플리케이션.Test01 (2).executor": "Run",
     "애플리케이션.Test01.executor": "Run"
   }
 }]]></component>
-  <component name="RunManager" selected="애플리케이션.Test01">
+  <component name="RunManager" selected="애플리케이션.ArrayIndex">
+    <configuration name="ArrayIndex" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ArrayIndex" />
+      <module name="ex10" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Ex01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex01" />
       <module name="ex10" />
@@ -94,6 +108,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="애플리케이션.ArrayIndex" />
         <item itemvalue="애플리케이션.Test01" />
         <item itemvalue="애플리케이션.Test01 (2)" />
         <item itemvalue="애플리케이션.Test01 (1)" />

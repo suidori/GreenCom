@@ -5,12 +5,14 @@ public class ResultCount {
     int draw = 0;
     int lose = 0;
 
-    public boolean doCount(CheckState check, int[][] room) {
+    public boolean doCount(CheckState check, int[][] room, int player, int com) {
         if (check.checkEnd(room) == 2) { //컴퓨터의 승리 조건
+            System.out.printf("플레이어: %d개, 컴퓨터: %d개\n", player, com);
             System.out.println("\n\n컴퓨터의 승리입니다");
             lose++; //패배 카운트
             return true;
         } else if (check.checkEnd(room) == 1) { //플레이어의 승리 조건
+            System.out.printf("플레이어: %d개, 컴퓨터: %d개\n", player, com);
             System.out.println("\n\n플레이어의 승리입니다");
             win++; //승리 카운트
             return true;

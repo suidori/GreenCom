@@ -1,4 +1,5 @@
-import java.lang.reflect.Array;
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Arrays;
 
 /*
@@ -7,15 +8,16 @@ import java.util.Arrays;
 public static int minValue(int[] arr){}
 public static int maxValue(int[] arr){}
 
-단, 반복문을 사용할 때 minValue의 정의에서는 일반적인 for문을 사용하고
-maxValue의 정의에서는 새로운 for(enhanced for)문을 사용하기로 하자
+단, 반복문을 사용할 때 minValue 의 정의에서는 일반적인 for 문을 사용하고
+maxValue 의 정의에서는 새로운 for(enhanced for)문을 사용하기로 하자
 */
+
 class Solution1{
 
     public static int minValue(int[] arr){
         int answer = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            answer = (answer>arr[i]) ? arr[i] : answer;
+        for (int e : arr) {
+            if(answer<e) answer = e;
         }
         return answer;
     }
@@ -23,7 +25,7 @@ class Solution1{
     public static int maxValue(int[] arr){
         int answer = arr[0];
         for(int e : arr){
-            answer = (answer<e) ? e : answer;
+            if(answer>e) answer = e;
         }
         return answer;
     }
@@ -108,8 +110,6 @@ public class Test01 {
     }
 
 }
-
-
 
 
 

@@ -32,7 +32,7 @@ public class Play {
                 turn.playerTurn(game.room, checkRoom.inputList, sc, flip); // 플레이어 턴 진행
             }
 
-            if (resultCount.doCount(checkState, game.room)) break; //게임이 끝나면 break
+            if (resultCount.doCount(checkState, game.room, checkState.player, checkState.com)) break; //게임이 끝나면 break
 
             checkRoom.checkBlack(game.room); // 흑이 놓을 수 있는 공간 확인
             if (!checkRoom.inputList.isEmpty()) { // 공간이 있으면
@@ -41,7 +41,7 @@ public class Play {
                 turn.comTurn(game.room, checkRoom.inputList, flip); //컴퓨터 턴 진행
             }
 
-            if (resultCount.doCount(checkState, game.room)) break; //게임이 끝나면 break
+            if (resultCount.doCount(checkState, game.room, checkState.player, checkState.com)) break; //게임이 끝나면 break
 
         }
 
