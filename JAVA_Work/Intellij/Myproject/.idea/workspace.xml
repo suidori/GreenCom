@@ -9,19 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20e532e8-e4d5-4175-bfe4-8edd5b42b292" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Othello/gameCode/CheckState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Othello/gameCode/ResultCount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Othello/gameCode/TypeCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ABC.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Othello/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Othello/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Othello/gameCode/CheckRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Othello/gameCode/CheckRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Othello/gameCode/Flip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Othello/gameCode/Flip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Othello/gameCode/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Othello/gameCode/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Othello/gameCode/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Othello/gameCode/Turn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Othello/gameCode/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Othello/gameCode/Play.java" afterDir="false" />
-    </list>
+    <list default="true" id="20e532e8-e4d5-4175-bfe4-8edd5b42b292" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +44,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Work/JAVA_Work/Intellij/Myproject/src/Tictactoe",
+    "last_opened_file_path": "D:/Work/JAVA_Work/Intellij/Myproject/Yacht Dice",
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0"
