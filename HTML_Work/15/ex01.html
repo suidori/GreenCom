@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: lightgreen;
+      }
+      button:hover + div {
+        display: block;
+      }
+      div:hover{
+        display: block;
+      }
+      li {
+        margin: 15px;
+        list-style: none;
+        padding: 20px;
+        border: 1px solid black;
+        cursor: pointer;
+      }
+      li:hover {
+        background-color: #ccc;
+      }
+      div {
+        padding: 20px;
+        width: 300px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button>
+      <img src="../Image/blobcateat.png" alt="blobcat" height="100px" />
+    </button>
+    <div>
+      <ul>
+        <li>SubMenu1</li>
+        <li>SubMenu2</li>
+        <li>SubMenu3</li>
+        <li>SubMenu4</li>
+      </ul>
+    </div>
+  </body>
+</html>
