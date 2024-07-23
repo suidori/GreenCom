@@ -5,7 +5,11 @@ public class ResultCount {
     int draw = 0;
     int lose = 0;
 
-    public boolean doCount(CheckState check, int[][] room, int player, int com) {
+    public boolean doCount(CheckState check, int[][] room) {
+        check.checkEnd(room);
+        int player = check.player;
+        int com = check.com;
+
         if (check.checkEnd(room) == 2) { //컴퓨터의 승리 조건
             System.out.printf("플레이어: %d개, 컴퓨터: %d개\n", player, com);
             System.out.println("\n\n컴퓨터의 승리입니다");

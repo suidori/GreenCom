@@ -1,6 +1,5 @@
 package Othello.gameCode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Flip {

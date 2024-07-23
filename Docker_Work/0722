@@ -1,0 +1,11 @@
+127.0.0.1
+localhost
+192.168.0.29
+
+dockerhub desktop
+
+현재폴더에 있는 모든 파일 복사
+docker cp . mynginx:usr/share/nginx/html
+
+nginx이미지를 가지고 mynginx 컨테이너 생성 포트 80:80 detach 실행
+docker run -d -p 80:80 --name mynginx nginx

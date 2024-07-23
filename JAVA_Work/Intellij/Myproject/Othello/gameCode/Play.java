@@ -18,30 +18,36 @@ public class Play {
         } else {
             System.out.println("후공입니다."); //1은 후공
             //후공이면 컴퓨터의 턴 진행
-            checkRoom.checkBlack(game.room);
-            game.printBlack(checkRoom.black);
+            checkRoom.checkRoom(game.room, 2);
+            game.printBoard(checkRoom.black);
             turn.comTurn(game.room, checkRoom.inputList, flip);
         }
 
         while (true) {
             //백이 놓을 수 있는 공간 확인
-            checkRoom.checkWhite(game.room);
-            if (!checkRoom.inputList.isEmpty()) { //백이 놓을 수 있는 공간이 있으면
-                game.printWhite(checkRoom.white); // 백 게임판 출력
-                System.out.println("플레이어의 턴입니다.");
+            System.out.println("플레이어의 턴입니다.");
+            checkRoom.checkRoom(game.room, 1);
+            if (checkRoom.inputList.length!=0) { //백이 놓을 수 있는 공간이 있으면
+                game.printBoard(checkRoom.white); // 백 게임판 출력
                 turn.playerTurn(game.room, checkRoom.inputList, sc, flip); // 플레이어 턴 진행
             }
-
-            if (resultCount.doCount(checkState, game.room, checkState.player, checkState.com)) break; //게임이 끝나면 break
-
-            checkRoom.checkBlack(game.room); // 흑이 놓을 수 있는 공간 확인
-            if (!checkRoom.inputList.isEmpty()) { // 공간이 있으면
-                game.printBlack(checkRoom.black); // 흑 게임판 출력
-                System.out.println("컴퓨터의 턴입니다.");
-                turn.comTurn(game.room, checkRoom.inputList, flip); //컴퓨터 턴 진행
+            else{
+                System.out.println("놓을 수 있는 공간이 없어 턴이 패스됩니다.");
             }
 
-            if (resultCount.doCount(checkState, game.room, checkState.player, checkState.com)) break; //게임이 끝나면 break
+            if (resultCount.doCount(checkState, game.room)) break; //게임이 끝나면 break
+
+            System.out.println("컴퓨터의 턴입니다.");
+            checkRoom.checkRoom(game.room, 2); // 흑이 놓을 수 있는 공간 확인
+            if (checkRoom.inputList.length!=0) { // 공간이 있으면
+                game.printBoard(checkRoom.black); // 흑 게임판 출력
+                turn.comTurn(game.room, checkRoom.inputList, flip); //컴퓨터 턴 진행
+            }
+            else{
+                System.out.println("놓을 수 있는 공간이 없어 턴이 패스됩니다.");
+            }
+
+            if (resultCount.doCount(checkState, game.room)) break; //게임이 끝나면 break
 
         }
 

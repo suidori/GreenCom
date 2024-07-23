@@ -8,14 +8,15 @@ public class CheckState {
         player = 0;
         com = 0;
         for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (room[i][j] == 1) { //player(백돌)의 갯수를 센다
+            for (int e:room[i]) {
+                if (e == 1) { //player(백돌)의 갯수를 센다
                     player++;
-                } else if (room[i][j] == 2) { //com(흑돌)의 갯수를 센다
+                } else if (e == 2) { //com(흑돌)의 갯수를 센다
                     com++;
                 }
             }
         }
+
         if (player == 0) { //백돌이 없으면
             return 2; //컴퓨터의 승리
         } else if (com == 0) { //흑돌이 없으면
