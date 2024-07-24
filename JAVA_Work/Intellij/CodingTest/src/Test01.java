@@ -8,7 +8,6 @@ public class Test01 {
         for (int[] ints : arr) {
             System.out.println(Arrays.toString(ints));
         }
-
     }
 
     public static int[][] scoreBoard(int n){
