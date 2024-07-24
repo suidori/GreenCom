@@ -45,11 +45,17 @@ public class PutScore {
             }
         }
         ss = 0;
-        if (dice[1] + 1 == dice[2] && dice[2] + 1 == dice[3]) {
-            if (dice[0] + 1 == dice[1] || dice[3] + 1 == dice[4]) {
-                ss = 15;
+        for (int i = 0; i < dice.length - 1; i++) {
+            if (dice[i] + 1 == dice[i + 1]) {
+                ss++;
             }
         }
+        if (ss == 3) {
+            ss = 15;
+        } else {
+            ss = 0;
+        }
+
         ls = 0;
         if (Arrays.equals(dice, new int[]{1, 2, 3, 4, 5}) || Arrays.equals(dice, new int[]{2, 3, 4, 5, 6})) {
             ls = 30;
@@ -71,12 +77,12 @@ public class PutScore {
         System.out.println("원하는 Categories의 번호를 입력 해 주십시오.");
         String input = sc.nextLine();
 
-        if(input.isEmpty()){
+        if (input.isEmpty()) {
             putScore(board, dice, sc, player);
             return;
         }
 
-        if(!input.replaceAll( "[0-9]", "").isEmpty()){
+        if (!input.replaceAll("[0-9]", "").isEmpty()) {
             System.out.println("숫자만 입력 해 주세요");
             putScore(board, dice, sc, player);
             return;

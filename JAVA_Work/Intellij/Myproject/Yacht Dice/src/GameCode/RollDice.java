@@ -34,23 +34,15 @@ public class RollDice {
     private void choice(Scanner sc) {
         System.out.println("저장된 주사위 값= " + Arrays.toString(diceKeep));
         System.out.println("굴려진 주사위 값= " + Arrays.toString(dice));
-
-        String input = sc.nextLine();
-
-        if(input.isEmpty()){
-            choice(sc);
-            return;
-        }
-
-        if(!input.replaceAll( "[0-9]", "").isEmpty()){
+        int value;
+        try{
+            value = sc.nextInt();
+        }catch (Exception e){
             System.out.println("숫자만 입력 해 주세요");
             choice(sc);
             return;
         }
 
-
-
-        int value = Integer.parseInt(input);
         //입력받음
         if (value > 0) {
             keepDice(value);

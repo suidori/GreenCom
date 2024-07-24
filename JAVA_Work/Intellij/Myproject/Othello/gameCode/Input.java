@@ -8,8 +8,10 @@ public class Input {
 
     public void inputCheck(Scanner sc) {
         String input = sc.nextLine();
+
         if (input.isEmpty()) {
             inputCheck(sc);
+            return;
         }
 
         if (input.charAt(0) == 'y') {

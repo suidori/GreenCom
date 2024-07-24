@@ -43,6 +43,7 @@ public class Flip {
         } else if (x == -1 && right == 0) {
             return;
         }
+
         //주어진 방향으로 진행하면서
         //턴 플레이어가 놓은 말이 없는 공간을 만났을 때
         if (room[down + y][right + x] != color) {
