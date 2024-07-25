@@ -33,13 +33,13 @@ public class GameBoard {
         chessPiece[7][4] = 5;
     }
 
-    public void printBoard() {
+    public void printBoard(boolean[][] movable) {
         for (int i = 0; i < 8; i++) {
             System.out.print(i+1);
             for (int j = 0; j < 8; j++) {
                 switch (chessPiece[i][j]) {
                     case 0:
-                        System.out.print(" ☐ ");
+                        System.out.print((movable[i][j]) ? " ◼ " : " ☐ ");
                         break;
                     case 1:
                         System.out.print((color[i][j]==1) ? " ♙ " : " ♟ ");
@@ -66,5 +66,6 @@ public class GameBoard {
             System.out.println();
         }
         System.out.println("    h |  g  |  f  |  e |  d  |  c |  b  |  a  ");
+
     }
 }

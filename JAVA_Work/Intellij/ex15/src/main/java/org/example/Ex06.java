@@ -10,11 +10,11 @@ public class Ex06 {
 
         try {
             Connection conn
-                    = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/aaa", "root", "0715");
+                    = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/NYH", "root", "0715");
 
             PreparedStatement pstmt
-                    = conn.prepareStatement("INSERT INTO student values ('김길동', '100', '100', '100')");
-            pstmt.execute();
+                    = conn.prepareStatement("INSERT INTO student values ('김길동', 100, 100, 100)");
+            pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

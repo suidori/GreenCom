@@ -13,8 +13,8 @@ public class GameBoard {
     }
 
     public void printBoard(boolean[][] space) {
-        char player = '○'; //플레이어의 기호
-        char com = '●'; //컴퓨터의 기호
+        char player = '⚪'; //플레이어의 기호
+        char com = '⚫'; //컴퓨터의 기호
         int k = 1; //숫자 출력을 위한 변수
         System.out.println("\n=========================================="); // 가로선 출력
         for (int i = 0; i < 8; i++) {
