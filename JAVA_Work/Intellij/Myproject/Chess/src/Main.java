@@ -14,15 +14,10 @@ public class Main {
 
         while (true) {
             gameBoard.printBoard(turn.movable);
-            turn.turn(gameBoard, gameBoard.chessPiece, gameBoard.color, sc, turnColor);
-
-            if (check.checkBy(gameBoard.chessPiece, gameBoard.color, turnColor)) {
-                System.out.printf("player %d가 체크 당했습니다!", 2/turnColor);
+            if(turn.turn(turn, gameBoard, gameBoard.chessPiece, gameBoard.color, sc, turnColor)!=0){
                 break;
             }
-
             turnColor = 2 / turnColor;
-
         }
     }
 }

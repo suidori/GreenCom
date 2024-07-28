@@ -6,11 +6,14 @@ import java.util.Scanner;
 public class Turn {
     public boolean[][] movable = new boolean[8][8];
 
-
-    public void turn(GameBoard board, int[][] chessPiece, int[][] color, Scanner sc, int turnColor) {
+    public int turn(Turn turn, GameBoard board, int[][] chessPiece, int[][] color, Scanner sc, int turnColor) {
 
         if(Check.checkBy(chessPiece,color,2/turnColor)){
             System.out.println("현재 체크 당한 상태입니다!");
+            if(CheckMate.checkAll(turn, turnColor, chessPiece, color, board.board)){
+                System.out.println("체크메이트입니다. Player" + 2/turnColor + "의 승리입니다.");
+                return 2/turnColor;
+            }
         }
         System.out.println("이동시킬 말의 위치를 골라 주세요");
         String input = sc.nextLine();
@@ -21,20 +24,21 @@ public class Turn {
                     checkMove(i, j, turnColor, chessPiece[i][j], chessPiece, color);
                     board.printBoard(movable);
                     if (doMove(i, j, chessPiece, sc, board.board, color, turnColor, chessPiece[i][j])) {
-                        return;
+                        return 0;
                     } else {
-                        turn(board, chessPiece, color, sc, turnColor);
-                        return;
+                        turn(turn, board, chessPiece, color, sc, turnColor);
+                        return 0;
                     }
                 }
             }
         }
 
         System.out.println("올바른 위치를 입력 해 주십시오.");
-        turn(board, chessPiece, color, sc, turnColor);
+        turn(turn, board, chessPiece, color, sc, turnColor);
+        return 0;
     }
 
-    private void checkMove(int y, int x, int turnColor, int movePiece, int[][] chessPiece, int[][] color) {
+    public void checkMove(int y, int x, int turnColor, int movePiece, int[][] chessPiece, int[][] color) {
         int[] dy = {-1, 0, 1, 0, -1, -1, 1, 1};
         int[] dx = {0, 1, 0, -1, -1, 1, 1, -1};
 
@@ -58,7 +62,7 @@ public class Turn {
                 }
                 if (y + Pdy >= 0 && y + Pdy <= 7 && x - 1 >= 0
                         && chessPiece[y + Pdy][x - 1] == 0
-                        && color[y + Pdy][x + 1] == 2 / turnColor) {
+                        && color[y + Pdy][x - 1] == 2 / turnColor) {
                     movable[y + Pdy][x - 1] = true;
                 }
                 break;
@@ -140,11 +144,15 @@ public class Turn {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board[i][j].equals(input) && movable[i][j]) {
+                    int tempPieceBefore = chessPiece[y][x];
+                    int tempColorBefore = color[y][x];
+                    int tempPieceAfter = chessPiece[i][j];
+                    int tempColorAfter = color[i][j];
                     chessPiece[y][x] = 0;
                     color[y][x] = 0;
                     chessPiece[i][j] = movePiece;
                     color[i][j] = turnColor;
-                    if(!Check.checkBy(chessPiece, color, turnColor)){
+                    if(!Check.checkBy(chessPiece, color, 2/turnColor)){
                         System.out.printf("%s -> %s\n", board[y][x], board[i][j]);
                         for (int k = 0; k < 8; k++) {
                             Arrays.fill(movable[k], false);
@@ -152,10 +160,10 @@ public class Turn {
                         return true;
                     }else{
                         System.out.println("자기 자신을 체크 상태로 만들 수 없습니다!");
-                        chessPiece[i][j] = movePiece;
-                        color[i][j] = turnColor;
-                        chessPiece[y][x] = 0;
-                        color[y][x] = 0;
+                        chessPiece[i][j] = tempPieceAfter;
+                        color[i][j] = tempColorAfter;
+                        chessPiece[y][x] = tempPieceBefore;
+                        color[y][x] = tempColorAfter;
                         for (int k = 0; k < 8; k++) {
                             Arrays.fill(movable[i], false);
                         }
