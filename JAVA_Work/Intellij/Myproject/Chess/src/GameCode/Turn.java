@@ -8,11 +8,11 @@ public class Turn {
 
     public int turn(Turn turn, GameBoard board, int[][] chessPiece, int[][] color, Scanner sc, int turnColor) {
 
-        if(Check.checkBy(chessPiece,color,2/turnColor)){
+        if (Check.checkBy(chessPiece, color, 2 / turnColor)) {
             System.out.println("현재 체크 당한 상태입니다!");
-            if(CheckMate.checkAll(turn, turnColor, chessPiece, color, board.board)){
-                System.out.println("체크메이트입니다. Player" + 2/turnColor + "의 승리입니다.");
-                return 2/turnColor;
+            if (CheckMate.checkAll(turn, turnColor, chessPiece, color, board.board)) {
+                System.out.println("체크메이트입니다. Player" + 2 / turnColor + "의 승리입니다.");
+                return 2 / turnColor;
             }
         }
         System.out.println("이동시킬 말의 위치를 골라 주세요");
@@ -52,7 +52,7 @@ public class Turn {
                 if (y + Pdy >= 0 && y + Pdy <= 7 && chessPiece[y + Pdy][x] == 0) {
                     movable[y + Pdy][x] = true;
                 }
-                if ((y == 1 && turnColor == 1) || (y == 6 && turnColor == 2) && chessPiece[y + Pdy][x] == 0) {
+                if (((y == 1 && turnColor == 1) || (y == 6 && turnColor == 2)) && chessPiece[y + Pdy][x] == 0 && chessPiece[y + Pdy + Pdy][x] == 0) {
                     movable[y + Pdy + Pdy][x] = true;
                 }
                 if (y + Pdy >= 0 && y + Pdy <= 7 && x + 1 <= 7
@@ -87,12 +87,12 @@ public class Turn {
                         }
                     }
                 }
-                if (y-1>=0&&y+1<=7&&x-2>=0){
-                    if(color[y-1][x-2]!=turnColor){
-                        movable[y-1][x-2] = true;
+                if (y - 1 >= 0 && y + 1 <= 7 && x - 2 >= 0) {
+                    if (color[y - 1][x - 2] != turnColor) {
+                        movable[y - 1][x - 2] = true;
                     }
-                    if(color[y+1][x-2]!=turnColor){
-                        movable[y+1][x-2] = true;
+                    if (color[y + 1][x - 2] != turnColor) {
+                        movable[y + 1][x - 2] = true;
                     }
                 }
                 break;
@@ -152,18 +152,19 @@ public class Turn {
                     color[y][x] = 0;
                     chessPiece[i][j] = movePiece;
                     color[i][j] = turnColor;
-                    if(!Check.checkBy(chessPiece, color, 2/turnColor)){
+                    if (!Check.checkBy(chessPiece, color, 2 / turnColor)) {
                         System.out.printf("%s -> %s\n", board[y][x], board[i][j]);
+                        System.out.printf("%d %d %d %d\n", chessPiece[y][x], color[y][x], chessPiece[i][j], color[i][j]);
                         for (int k = 0; k < 8; k++) {
                             Arrays.fill(movable[k], false);
                         }
                         return true;
-                    }else{
+                    } else {
                         System.out.println("자기 자신을 체크 상태로 만들 수 없습니다!");
                         chessPiece[i][j] = tempPieceAfter;
                         color[i][j] = tempColorAfter;
                         chessPiece[y][x] = tempPieceBefore;
-                        color[y][x] = tempColorAfter;
+                        color[y][x] = tempColorBefore;
                         for (int k = 0; k < 8; k++) {
                             Arrays.fill(movable[i], false);
                         }

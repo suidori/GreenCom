@@ -1,4 +1,3 @@
-import GameCode.Check;
 import GameCode.GameBoard;
 import GameCode.Turn;
 
@@ -9,7 +8,6 @@ public class Main {
         GameBoard gameBoard = new GameBoard();
         Turn turn = new Turn();
         Scanner sc = new Scanner(System.in);
-        Check check = new Check();
         int turnColor = 1;
 
         while (true) {
