@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>끝말잇기</title>
+  </head>
+  <body>
+    <div><span id="order">1</span>번째 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text" />
+    <button>입력</button>
+    <p id="read"></p>
+    <script>
+      const num = Number(prompt("몇 명이 참가하나요?"));
+      const order = document.querySelector("#order");
+      const word = document.querySelector("#word");
+      const $input = document.querySelector("input");
+      const button = document.querySelector("button");
+      const read = document.querySelector('#read');
+
+      button.onclick = () => {
+        word.innerHTML = $input.value;
+        read.innerHTML = read.innerHTML+"<br>"+$input.value;
+        $input.value = "";
+        $input.focus();
+        if (Number(order.innerHTML) < num) {
+          order.innerHTML = Number(order.innerHTML) + 1;
+        }
+        else order.innerHTML = "1";
+      }
+    </script>
+  </body>
+</html>

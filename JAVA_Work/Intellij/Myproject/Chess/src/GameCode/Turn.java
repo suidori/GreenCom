@@ -9,11 +9,11 @@ public class Turn {
     public int turn(Turn turn, GameBoard board, int[][] chessPiece, int[][] color, Scanner sc, int turnColor) {
 
         if (Check.checkBy(chessPiece, color, 2 / turnColor)) {
-            System.out.println("현재 체크 당한 상태입니다!");
             if (CheckMate.checkAll(turn, turnColor, chessPiece, color, board.board)) {
                 System.out.println("체크메이트입니다. Player" + 2 / turnColor + "의 승리입니다.");
                 return 2 / turnColor;
             }
+            System.out.println("현재 체크 당한 상태입니다!");
         }
         System.out.println("이동시킬 말의 위치를 골라 주세요");
         String input = sc.nextLine();
