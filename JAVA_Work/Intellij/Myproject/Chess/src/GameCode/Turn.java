@@ -65,6 +65,8 @@ public class Turn {
                         && color[y + Pdy][x - 1] == 2 / turnColor) {
                     movable[y + Pdy][x - 1] = true;
                 }
+
+
                 break;
             case 2:
                 for (int i = 0; i < 4; i++) {
@@ -154,10 +156,6 @@ public class Turn {
                     color[i][j] = turnColor;
                     if (!Check.checkBy(chessPiece, color, 2 / turnColor)) {
                         System.out.printf("%s -> %s\n", board[y][x], board[i][j]);
-                        System.out.printf("%d %d %d %d\n", chessPiece[y][x], color[y][x], chessPiece[i][j], color[i][j]);
-                        for (int k = 0; k < 8; k++) {
-                            Arrays.fill(movable[k], false);
-                        }
                         return true;
                     } else {
                         System.out.println("자기 자신을 체크 상태로 만들 수 없습니다!");
@@ -165,9 +163,6 @@ public class Turn {
                         color[i][j] = tempColorAfter;
                         chessPiece[y][x] = tempPieceBefore;
                         color[y][x] = tempColorBefore;
-                        for (int k = 0; k < 8; k++) {
-                            Arrays.fill(movable[i], false);
-                        }
                         return false;
                     }
                 }
