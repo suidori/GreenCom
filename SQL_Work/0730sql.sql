@@ -91,3 +91,30 @@ from orders, customer, book
 where orders.bookid=book.bookid && orders.custid = customer.custid
 order by customer.custid;
 -- 고객의 이름과 고객이 구매한 도서목록
+
+select bookname from book
+where price = (select max(price) from book);
+-- 가장 비싼 책
+
+select name
+from customer
+where custid in (select distinct custid from orders);
+-- 책을 구매한 적 있는 고객의 이름
+
+select name
+from customer
+where custid in (select custid 
+				from orders
+				where bookid in(select bookid
+								from book
+								where publisher like '대한미디어')
+);
+
+-- 대한미디어에서 출판한 도서를 구매한 고객의 이름을 출력하세요.
+
+select name from customer
+where address like '대한민국%'
+union
+select name from customer
+where custid in (select custid from orders);
+-- 대한민국에 거주하는 고객의 이름과 도서를 주문한 고객의 이름을 출력하세요
