@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #mydiv {
+        width: 100%;
+        height: 200px;
+        background-color: rgba(255, 0, 0, 0.5);
+      }
+      #aa:checked ~ #mydiv {
+        display: none;
+      }
+      #prodiv {
+        position: absolute;
+        top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="aa">aa</label>
+    <input type="checkbox" name="aa" id="aa" />
+    <div id="mydiv"></div>
+    <div id="prodiv">
+      <h1>상품</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi accusamus
+        veniam repudiandae tempora eos itaque adipisci, harum dolorem iure quas
+        possimus praesentium cum magnam fugiat? Quae illum aut tempora enim?
+      </p>
+    </div>
+  </body>
+</html>

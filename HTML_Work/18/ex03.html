@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+      }
+      /* #box1 {
+        background-color: red;
+        animation: aa 3s infinite;
+      } */
+      #box2 {
+        background-color: green;
+        animation: bb 5s infinite;
+      }
+      @keyframes aa {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(90deg) scale(2);
+        }
+      }
+      @keyframes bb {
+        0% {
+          left: 10px;
+          top: 100px;
+        }
+        100% {
+          left: 300px;
+          top: 100px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+  </body>
+</html>
