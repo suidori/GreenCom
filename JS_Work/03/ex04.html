@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="aa">요소추가</button>
+    <div id="print"></div>
+    <script>
+        var arr = [10, 20, 30];
+
+        var aa = document.getElementById("aa");
+        var print = document.getElementById("print");
+        aa.onclick = function(){
+            arr.push(50);
+            print.innerHTML = arr;
+        }
+        print.innerHTML = arr;
+    </script>
+</body>
+</html>

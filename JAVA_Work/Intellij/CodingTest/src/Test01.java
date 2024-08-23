@@ -1,13 +1,22 @@
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Test01 {
-    public static void main(String[] args) {
-        String str1 = "1234";
-        String str2 = new String("1234");
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        long A = sc.nextLong();
+        long B = sc.nextLong();
+        long V = sc.nextLong();
 
-        System.out.println(str1.hashCode());
-        System.out.println(str2.hashCode());
+        long count = (V / (A-B)) - B;
+        long up = (count)*(A-B);
 
+        while(true){
+            count++;
+            up += A;
+            if(up>=V){break;}
+            up -= B;
+        }
+
+        System.out.println(count);
     }
-
 }
