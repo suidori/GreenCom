@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .cont {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .cont>div{
+            width: 200px;
+            height: 100px;
+        }
+        
+        div:nth-child(1) {
+            /* flex: 1; */
+            background-color: lightblue;
+        }
+        div:nth-child(2) {
+            /* flex: 1; */
+            background-color: blue;
+        }
+        div:nth-child(3) {
+            flex-grow: 1;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit inventore magni quidem explicabo rerum nesciunt quos assumenda porro. Ducimus suscipit architecto ipsum cum? Quia voluptates ratione pariatur facilis harum ullam.</div>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe neque animi, consequuntur sint vitae, similique officia minus quasi molestiae atque ut deserunt. Eum, illo unde excepturi enim quod at nobis.</div>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim in cum praesentium hic eius incidunt facilis nulla? Itaque quod maiores impedit sint sequi excepturi fugit placeat, similique et hic totam.</div>
+    </div>
+</body>
+</html>
