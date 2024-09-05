@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="p-4">
+        <h1 class="text-4xl m-3">할 일 목록</h1>
+        <ul class="text-2xl">
+            <li><input type="checkbox" class="check mr-3 text-2xl">할일1</li>
+            <li><input type="checkbox" class="check mr-3 text-2xl">할일2</li>
+            <li><input type="checkbox" class="check mr-3 text-2xl">할일3</li>
+            <li><input type="checkbox" class="check mr-3 text-2xl">할일4</li>
+        </ul>
+    </div>
+</body>
+
+</html>
+
+<script>
+    const checks = document.getElementsByTagName('input');
+
+    for (let i = 0; i < checks.length; i++) {
+        const element = checks[i];
+        element.addEventListener('click', (event) => {
+            if (element.checked) {
+                event.target.parentNode.style.textDecoration = 'line-through';
+                event.target.parentNode.style.color = '#ccc';
+            }
+            else {
+                event.target.parentNode.style.textDecoration = '';
+                event.target.parentNode.style.color = '';
+            }
+        });
+    }
+</script>
