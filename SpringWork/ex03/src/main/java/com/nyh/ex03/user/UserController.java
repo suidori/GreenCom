@@ -20,6 +20,7 @@ public class UserController {
 
     @PostMapping("insert")
     public String insert(@RequestBody User user){
+        user.setWdate(LocalDateTime.now());
 //        User user = User.builder()
 //                .name("홍길동")
 //                .age(20)
