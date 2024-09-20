@@ -39,8 +39,4 @@ public class Comment {
 
     @Column(nullable = true)
     private Integer c_response_index;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "c_response_index", referencedColumnName = "c_idx", insertable = false, updatable = false)
-    private Comment responseComment;
 }

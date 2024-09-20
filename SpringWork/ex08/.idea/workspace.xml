@@ -4,7 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f7a753e-ac80-4e49-ba55-73a7600241cb" name="변경" comment="" />
+    <list default="true" id="8990c7ae-e4ec-4c5c-a1a0-cd7244a04138" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/freeboard/FreeBoardResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/freeboard/FreeBoardResponsePageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Vue_Work/ex06/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Vue_Work/ex06/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Vue_Work/ex06/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../Vue_Work/ex06/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/assets/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/assets/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/assets/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../Vue_Work/ex06/src/assets/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/TheWelcome.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/WelcomeItem.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/icons/IconCommunity.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/icons/IconDocumentation.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/icons/IconEcosystem.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/icons/IconSupport.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/components/icons/IconTooling.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Vue_Work/ex06/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Vue_Work/ex06/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/views/AboutView.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Vue_Work/ex06/src/views/HomeView.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/comment/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/comment/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/comment/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/comment/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/comment/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/comment/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/freeboard/FreeBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/freeboard/FreeBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/freeboard/FreeBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../freeboard/src/main/java/com/example/freeboard/freeboard/FreeBoardController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,61 +43,32 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
-        <projects_view />
-      </state>
-    </system>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="Interface" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 1
 }</component>
-  <component name="ProjectId" id="2mGbYsu1nscRbRETbnJydTuJBnW" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2mJSrITCO5VvTcTcYnJrfik8MHy" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Gradle.ex08.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/board_work&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;0d570cb2-96df-43cc-80da-7f777e6d0afe&quot;,
-    &quot;애플리케이션.Ex08Application.executor&quot;: &quot;Run&quot;
+    &quot;last_opened_file_path&quot;: &quot;D:/Work/SpringWork/ex08&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\board_work" />
-    </key>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="9f7a753e-ac80-4e49-ba55-73a7600241cb" name="변경" comment="" />
-      <created>1726705910742</created>
+      <changelist id="8990c7ae-e4ec-4c5c-a1a0-cd7244a04138" name="변경" comment="" />
+      <created>1726793382935</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1726705910742</updated>
+      <updated>1726793382935</updated>
     </task>
     <servers />
   </component>

@@ -8,5 +8,4 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, CommentId> {
     List<Comment> findByFidx(long fidx);
-
 }

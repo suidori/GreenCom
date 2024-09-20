@@ -34,12 +34,12 @@ public class FreeBoard {
     @Column(nullable = false)
     private String f_body;
 
-    private LocalDateTime f_timestamp;
+    private LocalDateTime ftimestamp;
 
     @PrePersist
     public void prePersist() {
-        if (this.f_timestamp == null) {
-            this.f_timestamp = LocalDateTime.now();
+        if (this.ftimestamp == null) {
+            this.ftimestamp = LocalDateTime.now();
         }
     }
 

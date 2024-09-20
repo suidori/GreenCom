@@ -1,5 +1,9 @@
+import TheHome from '@/views/TheHome.vue'
+import TheUser from '@/views/TheUser.vue'
+import TheFreeBoardInput from '@/views/freeboard/TheFreeBoardInput.vue'
+import TheFreeBoardList from '@/views/freeboard/TheFreeBoardList.vue'
+import TheFreeBoardView from '@/views/freeboard/TheFreeBoardView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,15 +11,27 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: TheHome
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/user',
+      name: 'user',
+      component: TheUser
+    },
+    {
+      path: '/freeboardinput',
+      name: 'freeboardinput',
+      component: TheFreeBoardInput
+    },
+    {
+      path: '/freeboardlist',
+      name: 'freeboardlist',
+      component: TheFreeBoardList
+    },
+    {
+      path: '/freeboardview/:idx',
+      name: 'freeboardview',
+      component: TheFreeBoardView,
     }
   ]
 })
