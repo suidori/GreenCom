@@ -17,7 +17,7 @@ public class FreeBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long f_idx;
+    private long idx;
 
     @Column(columnDefinition = "boolean default true", nullable = false)
     private boolean f_avail = true;

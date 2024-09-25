@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FreeBoardResponseDto {
-    private long f_idx;
+    private long idx;
     private boolean f_avail;
     private String f_nickname;
     private String f_password;

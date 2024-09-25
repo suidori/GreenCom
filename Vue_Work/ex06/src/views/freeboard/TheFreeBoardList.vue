@@ -17,7 +17,7 @@
             v-for="item in arr"
             :key="item.f_idx"
             class="cursor-pointer hover:bg-slate-300"
-            @click="viewPage(item.f_idx)"
+            @click="viewPage(item.idx)"
           >
             <td class="border text-center text-lg p-1">{{ item.f_idx }}</td>
             <td class="border text-center text-lg p-1">{{ item.f_title }}</td>

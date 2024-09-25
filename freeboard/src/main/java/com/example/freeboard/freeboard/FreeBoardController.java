@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,9 +27,14 @@ public class FreeBoardController {
     private final FreeBoardRepository freeBoardRepository;
 
     @GetMapping("view/{idx}")
-    public ResponseEntity<FreeBoardResponseDto> findOne(@PathVariable long idx){
-        log.info("idx = " + idx);
-        return null;
+    public ResponseEntity<FreeBoardResponseDto> findOne(@PathVariable(name = "idx") long idx){
+
+        Optional<FreeBoard> freeBoard = freeBoardRepository.findById(idx);
+
+        ModelMapper modelMapper = new ModelMapper();
+        FreeBoardResponseDto freeBoardResponseDto = modelMapper.map(freeBoard.get(), FreeBoardResponseDto.class);
+
+        return ResponseEntity.ok(freeBoardResponseDto);
     }
 
     @GetMapping("select")
