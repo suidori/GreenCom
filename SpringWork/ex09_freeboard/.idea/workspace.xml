@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9a1d0c9-a228-420b-a959-caf8f11c3ac2" name="변경" comment="" />
+    <list default="true" id="e9a1d0c9-a228-420b-a959-caf8f11c3ac2" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/../../management/src/main/java/attendance/management/user/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../management/src/main/java/attendance/management/user/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../management/src/main/java/attendance/management/user/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../management/src/main/java/attendance/management/user/UserReqDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../management/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +38,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Work/SpringWork/ex10",
+    "last_opened_file_path": "D:/Work/SpringWork/ex07",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
