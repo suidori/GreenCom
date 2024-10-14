@@ -16,16 +16,22 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idx;
+    private Long idx;
 
-    String userid;
+    private String userid;
 
-    String password;
+    private String password;
 
-    String phoneNumber;
+    private String name;
 
-    String email;
+    private String phoneNumber;
 
-    String level;
+    private String email;
+
+    private String role;
+
+    private boolean accept;
+
+    private String lecture;
 
 }
