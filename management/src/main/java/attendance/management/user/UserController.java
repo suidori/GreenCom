@@ -13,12 +13,4 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @PostMapping("insert")
-    public ResponseEntity<String> insert(@Valid @RequestBody UserReqDto userReqDto){
-        userService.insert(userReqDto);
-
-        return ResponseEntity.status(200).body("ok");
-    }
-
-
 }
