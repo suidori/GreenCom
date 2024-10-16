@@ -36,16 +36,17 @@ public class SecurityConfig {
         http.formLogin(form -> form.disable());
         http.httpBasic(basic -> basic.disable());
 
-        http.authorizeRequests(auth -> auth
+        http.authorizeRequests(auth -> auth.requestMatchers("/**").permitAll()
                 // 일반 사용자도 접근 가능하다
-                .requestMatchers("/signin", "/question/**", "/answer/**").permitAll()
-                // swagger 문서...
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers("/kakao/**").permitAll()
-                .requestMatchers("/test/**").permitAll()
-                // ADMIN 으로 role 을 가지고 있을때 접근 가능 하다.
-                .requestMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated());
+//                .requestMatchers("/signin", "/question/**", "/answer/**", "/lecture/**", "/vacation/**").permitAll()
+//                // swagger 문서...
+//                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+//                .requestMatchers("/kakao/**").permitAll()
+//                .requestMatchers("/test/**").permitAll()
+//                // ADMIN 으로 role 을 가지고 있을때 접근 가능 하다.
+//                .requestMatchers("/admin").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+        );
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

@@ -1,5 +1,9 @@
 package attendance.management.sign;
 
+import attendance.management.error.BizException;
+import attendance.management.error.ErrorCode;
+import attendance.management.lecture.Lecture;
+import attendance.management.lecture.LectureRepository;
 import attendance.management.user.User;
 import attendance.management.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +27,8 @@ public class SignInService {
         user.setPassword(
                 passwordEncoder.encode(joinDto.getPassword())
         );
-        user.setAccept(true);
         //권한이 학생이 아니라면 accept 를 false 로
-
-        //lecture 검색 후 비밀번호 검증
+        user.setAccept(user.getRole().equals("ROLE_STUDENT"));
 
         userRepository.save(user);
 

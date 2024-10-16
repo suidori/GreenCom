@@ -30,6 +30,4 @@ public class JoinDto {
     @Schema(description = "이메일", example = "aaa@example.com")
     private String email;
 
-    @Schema(description = "강좌", example = "505호 자바 MSA")
-    private String lecture;
 }

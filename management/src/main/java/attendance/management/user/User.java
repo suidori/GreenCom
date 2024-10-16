@@ -32,6 +32,4 @@ public class User {
 
     private boolean accept;
 
-    private String lecture;
-
 }
