@@ -26,4 +26,7 @@ public class UserAndLecture {
     @ManyToOne
     @JoinColumn(name = "lecture")
     private Lecture lecture;
+
+    private boolean state;
+
 }

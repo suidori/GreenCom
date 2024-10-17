@@ -11,4 +11,6 @@ public class UserAndLectureReqDto {
 
     private Lecture lecture;
 
+    private boolean state;
+
 }

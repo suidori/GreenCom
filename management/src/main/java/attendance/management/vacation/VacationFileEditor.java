@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -49,7 +50,11 @@ public class VacationFileEditor {
             setCellTextByField(hwpFile, content[i], body[i]);
         }
 
-        HWPWriter.toFile(hwpFile, LocalDate.now() + body[2] + "휴가신청서.hwp");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd");
+        LocalDate now = LocalDate.now();
+        String nowDate = now.format(formatter);
+
+        HWPWriter.toFile(hwpFile, nowDate + '_' + body[2] + "_휴가신청서.hwp");
 
     }
 

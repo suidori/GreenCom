@@ -2,6 +2,8 @@ package attendance.management.question;
 
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
+import attendance.management.userandlecture.UserAndLecture;
+import attendance.management.userandlecture.UserAndLectureRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +23,18 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
     private final ModelMapper modelMapper;
+    private final UserAndLectureRepository userAndLectureRepository;
 
     public Question save(QuestionReqDto questionReqDto) {
         Question question = modelMapper.map(questionReqDto, Question.class);
         question.setWdate(LocalDateTime.now());
         question.setResponse(false);
+
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser(questionReqDto.getUser());
+        userAndLecture.ifPresentOrElse(
+                userAndLecture1 -> question.setLecture(userAndLecture1.getLecture()),
+                ()->new BizException(ErrorCode.USER_NOT_FOUND)
+        );
 
         questionRepository.save(question);
 
@@ -42,7 +52,7 @@ public class QuestionService {
                 .map(question -> {
                     QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
 
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd hh:mm");
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
                     questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
 
                     if (question.getUser() != null) {
@@ -67,7 +77,7 @@ public class QuestionService {
         Question question = questionRepository.findById(idx).orElseThrow(() -> new BizException(ErrorCode.NOT_FOUND));
 
         QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd hh:mm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
 
         if (question.getUser() != null) {

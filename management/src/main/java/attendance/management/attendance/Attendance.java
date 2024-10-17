@@ -1,4 +1,4 @@
-package attendance.management.question;
+package attendance.management.attendance;
 
 import attendance.management.lecture.Lecture;
 import attendance.management.user.User;
@@ -8,25 +8,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "question")
+@Table(name = "attendance")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Question {
+public class Attendance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    private String title;
+    private String type;
 
-    private String body;
+    private String reason;
 
-    private LocalDateTime wdate;
+    private LocalDate adate;
 
     @ManyToOne
     @JoinColumn(name = "useridx")
@@ -36,6 +36,8 @@ public class Question {
     @JoinColumn(name = "lectureidx")
     private Lecture lecture;
 
-    private boolean response;
+    private boolean teacheraccept;
+
+    private boolean manageraccept;
 
 }
