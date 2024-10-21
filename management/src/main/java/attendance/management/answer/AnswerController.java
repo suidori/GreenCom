@@ -21,5 +21,11 @@ public class AnswerController {
         return ResponseEntity.status(200).body(answer);
     }
 
+    @GetMapping("view/{idx}")
+    public ResponseEntity<AnswerResponseDto> findOne(@PathVariable(name = "idx") long idx) {
+        AnswerResponseDto answerResponseDto = answerService.viewPage(idx);
+        return ResponseEntity.ok(answerResponseDto);
+    }
+
 
 }

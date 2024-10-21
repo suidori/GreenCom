@@ -13,9 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,45 +53,29 @@ public class AttendanceService {
     }
 
     public AttendanceResponsePageDto studentPage(Pageable pageable, AttendanceReqDto attendanceReqDto) {
-        Page<Attendance> page = attendanceRepository.findAll(pageable);
+        Long userIdx = attendanceReqDto.getUser().getIdx();
 
-        AttendanceResponsePageDto attendanceResponsePageDto = modelMapper.map(page, AttendanceResponsePageDto.class);
+        // 특정 작성자에 해당하는 글만 가져오기
+        Page<Attendance> page = attendanceRepository.findByUser_Idx(userIdx, pageable);
 
-        Optional<User> fuser = userRepository.findById(attendanceReqDto.getUser().getIdx());
-
-        if (fuser.isEmpty()) {
-            new BizException(ErrorCode.USER_NOT_FOUND);
-        }
-
-        Optional<UserAndLecture> ual = userAndLectureRepository.findByUser(fuser.get());
-
-        if (ual.isEmpty()) {
-            new BizException(ErrorCode.USER_NOT_FOUND);
-        }
-
-        List<AttendanceResponseDto> list = attendanceResponsePageDto
+        List<AttendanceResponseDto> filteredList = page
                 .getContent()
                 .stream()
-                .filter(attendance -> attendance.getLecture().getIdx().equals(ual.get().getLecture().getIdx()))
                 .map(attendance -> {
                     AttendanceResponseDto attendanceResponseDto = modelMapper.map(attendance, AttendanceResponseDto.class);
-                    if (attendance.isTeacheraccept()) {
-                        attendanceResponseDto.setTeacheraccept("담당교사 확인 완료");
-                    } else {
-                        attendanceResponseDto.setTeacheraccept("담당교사 확인 대기중");
-                    }
-
-                    if (attendance.isManageraccept()) {
-                        attendanceResponseDto.setManageraccept("행정실 확인 완료");
-                    } else {
-                        attendanceResponseDto.setManageraccept("행정실 확인 대기중");
-                    }
-
+                    attendanceResponseDto.setUser((attendance.getUser() != null) ? attendance.getUser().getName() : "탈퇴한 회원");
+                    attendanceResponseDto.setLecture((attendance.getLecture() != null) ? attendance.getLecture().getTitle() : "존재하지 않는 강좌");
+                    attendanceResponseDto.setTeacheraccept(attendance.isTeacheraccept() ? "담당교사 확인 완료" : "담당교사 확인 대기중");
+                    attendanceResponseDto.setManageraccept(attendance.isManageraccept() ? "행정실 확인 완료" : "행정실 확인 대기중");
                     return attendanceResponseDto;
-                }).toList();
+                })
+                .collect(Collectors.toList());
 
-        attendanceResponsePageDto.setList(list);
+        AttendanceResponsePageDto attendanceResponsePageDto = modelMapper.map(page, AttendanceResponsePageDto.class);
+        attendanceResponsePageDto.setList(filteredList);
+        attendanceResponsePageDto.setTotalElements(page.getTotalElements());
 
         return attendanceResponsePageDto;
     }
+
 }

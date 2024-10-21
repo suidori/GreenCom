@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +28,7 @@ public class VacationFileEditor {
 
     private final VacationRepository vacationRepository;
 
-    public void newHWP(long idx) throws Exception {
+    public String newHWP(long idx) throws Exception {
         HWPFile hwpFile = HWPReader.fromFile("vacation.hwp");
 
         String[] content = new String[]{"훈련과정명", "훈련기간", "성명", "주민등록번호", "사유", "희망일자", "비상연락망"};
@@ -35,15 +36,16 @@ public class VacationFileEditor {
 
         Optional<Vacation> vacation = vacationRepository.findById(idx);
         vacation.ifPresentOrElse((vacation1 -> {
-            body[0] = vacation1.getLecture().getTitle();
-            body[1] = vacation1.getLecture().getStartDate() + " ~ " + vacation1.getLecture().getEndDate();
-            body[2] = vacation1.getUser().getName();
-            body[3] = vacation1.getPersonalNum();
-            body[4] = vacation1.getReason();
-            body[5] = vacation1.getDate();
-            body[6] = vacation1.getPhonecall();
+                    body[0] = vacation1.getLecture().getTitle();
+                    body[1] = vacation1.getLecture().getStartDate() + " ~ " + vacation1.getLecture().getEndDate();
+                    body[2] = vacation1.getUser().getName();
+                    body[3] = vacation1.getPersonalNum();
+                    body[4] = vacation1.getReason();
+                    body[5] = vacation1.getDate();
+                    body[6] = vacation1.getPhonecall();
                 }),
-                () -> { new BizException(ErrorCode.REQUEST_NOT_FOUND);
+                () -> {
+                    new BizException(ErrorCode.REQUEST_NOT_FOUND);
                 });
 
         for (int i = 0; i < 7; i++) {
@@ -54,7 +56,24 @@ public class VacationFileEditor {
         LocalDate now = LocalDate.now();
         String nowDate = now.format(formatter);
 
-        HWPWriter.toFile(hwpFile, nowDate + '_' + body[2] + "_휴가신청서.hwp");
+        int count = 1;
+
+        File directory = new File("/request_hwp");
+        File[] files = directory.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().equals(nowDate + '_' + body[2] + "_휴가신청서(" + count + ").hwp")) {
+                    count++;
+                }
+            }
+        }
+
+        String title = nowDate + '_' + body[2] + "_휴가신청서(" + count + ").hwp";
+
+        HWPWriter.toFile(hwpFile, savePath(title));
+
+        return title;
 
     }
 
@@ -71,4 +90,9 @@ public class VacationFileEditor {
             paraText.addString(fieldText);
         }
     }
+
+    private static String savePath(String filename) {
+        return "request_hwp" + File.separator + filename;
+    }
+
 }

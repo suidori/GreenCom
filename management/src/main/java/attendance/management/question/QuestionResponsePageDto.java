@@ -16,7 +16,7 @@ public class QuestionResponsePageDto {
     private List<Question> content;
 
     private List<QuestionResponseDto> list;
-    private int totalElements;
+    private long totalElements;
     private int totalPages;
     private int size;
 }

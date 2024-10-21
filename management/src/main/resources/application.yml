@@ -17,7 +17,8 @@ spring:
     level:
       org.hibernate.SQL: DEBUG                            # Hibernate SQL 로깅 레벨
       org.hibernate.type.descriptor.sql.BasicTypeDescriptor: TRACE  # Hibernate의 SQL 타입 디스크립터 로깅 레벨
-
+  jwt:
+    secret: mySuperSecretKey
 # 추가 설정 예시
 # spring:
 #   security:

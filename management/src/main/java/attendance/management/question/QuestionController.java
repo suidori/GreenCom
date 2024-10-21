@@ -24,7 +24,7 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity<QuestionResponsePageDto> findAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "5") int size){
+            @RequestParam(name = "size", defaultValue = "10") int size){
         Sort sort = Sort.by(Sort.Direction.DESC, "idx");
         Pageable pageable = PageRequest.of(pageNum, size, sort);
         return ResponseEntity.ok(questionService.questionPage(pageable));
@@ -40,6 +40,18 @@ public class QuestionController {
     public ResponseEntity<QuestionResponseDto> findOne(@PathVariable(name = "idx") long idx) {
         QuestionResponseDto questionResponseDto = questionService.viewPage(idx);
         return ResponseEntity.ok(questionResponseDto);
+    }
+
+    @GetMapping("/student")
+    public ResponseEntity<QuestionResponsePageDto> studentFindAll(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestBody QuestionReqDto questionReqDto
+    ){
+        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
+        Pageable pageable = PageRequest.of(pageNum, size, sort);
+        QuestionResponsePageDto questionResponsePageDto = questionService.studentPage(pageable, questionReqDto);
+        return ResponseEntity.ok(questionResponsePageDto);
     }
 
 }

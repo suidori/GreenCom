@@ -2,15 +2,18 @@ package attendance.management.vacation;
 
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
-import attendance.management.lecture.Lecture;
-import attendance.management.lecture.LectureRepository;
-import attendance.management.user.User;
-import attendance.management.user.UserRepository;
+import attendance.management.userandlecture.UserAndLecture;
+import attendance.management.userandlecture.UserAndLectureRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -22,20 +25,38 @@ public class VacationService {
     private final VacationRepository vacationRepository;
     private final ModelMapper modelMapper;
     private final VacationFileEditor vacationFileEditor;
-    private final UserRepository userRepository;
-    private final LectureRepository lectureRepository;
+    private final UserAndLectureRepository userAndLectureRepository;
 
-    public Vacation request(VacationReqDto vacationReqDto) {
-        Optional<User> user = userRepository.findByName(vacationReqDto.getUser().getName());
-        user.ifPresentOrElse(vacationReqDto::setUser, ()-> new BizException(ErrorCode.USER_NOT_FOUND));
-        Optional<Lecture> lecture = lectureRepository.findByTitle(vacationReqDto.getLecture().getTitle());
-        lecture.ifPresentOrElse(vacationReqDto::setLecture, ()-> new BizException(ErrorCode.LECTURE_NOT_FOUND));
+    public VacationResponseDto request(VacationReqDto vacationReqDto) {
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser(vacationReqDto.getUser());
+        userAndLecture.ifPresentOrElse(
+                userAndLecture1 -> {
+                    vacationReqDto.setLecture(userAndLecture1.getLecture());
+                    vacationReqDto.setUser(userAndLecture1.getUser());
+                },
+                () -> {
+                    throw new BizException(ErrorCode.USER_NOT_FOUND);
+                }
+        );
 
         Vacation vacation = modelMapper.map(vacationReqDto, Vacation.class);
         vacation.setWdate(LocalDate.now());
         vacation.setAccept(false);
         vacationRepository.save(vacation);
-        return vacation;
+
+        VacationResponseDto vacationResponseDto = VacationResponseDto
+                .builder()
+                .idx(vacation.getIdx())
+                .user(vacation.getUser().getName())
+                .date(vacation.getDate())
+                .wdate(vacation.getWdate().toString())
+                .reason(vacation.getReason())
+                .lecture(vacation.getLecture().getTitle())
+                .personalNum(vacation.getPersonalNum())
+                .phonecall(vacation.getPhonecall())
+                .build();
+
+        return vacationResponseDto;
     }
 
     public Vacation accept(long idx) {
@@ -45,13 +66,24 @@ public class VacationService {
                     vacationRepository.save(vacation1);
                 },
                 () -> {
-            new BizException(ErrorCode.REQUEST_NOT_FOUND);
+                    throw new BizException(ErrorCode.REQUEST_NOT_FOUND);
                 });
         return vacation.get();
     }
 
-    public void download(long idx) throws Exception {
-        vacationFileEditor.newHWP(idx);
+    public String newHWP(long idx) throws Exception {
+        return vacationFileEditor.newHWP(idx);
+    }
+
+    public Resource download(String fileName) throws IOException {
+        Path filePath = Paths.get("request_hwp", fileName);
+        Resource resource = new UrlResource(filePath.toUri());
+
+        if (!resource.exists()) {
+            throw new BizException(ErrorCode.FILE_NOT_FOUND);
+        }
+
+        return resource;
     }
 
 }

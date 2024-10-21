@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +70,31 @@ public class QuestionService {
                     return questionResponseDto;
                 }).toList();
         questionResponsePageDto.setList(list);
+
+        return questionResponsePageDto;
+    }
+
+    public QuestionResponsePageDto studentPage(Pageable pageable, QuestionReqDto questionReqDto){
+        Long userIdx = questionReqDto.getUser().getIdx();
+
+        Page<Question> page = questionRepository.findByUser_Idx(userIdx, pageable);
+
+        List<QuestionResponseDto> filteredList = page
+                .getContent()
+                .stream()
+                .map(question -> {
+                    QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
+                    questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
+                    questionResponseDto.setResponse(question.isResponse() ? "답변 완료" : "답변 대기중");
+                    questionResponseDto.setUser((question.getUser() != null) ? question.getUser().getName() : "탈퇴한 회원");
+                    return questionResponseDto;
+                })
+                .collect(Collectors.toList());
+
+        QuestionResponsePageDto questionResponsePageDto = modelMapper.map(page, QuestionResponsePageDto.class);
+        questionResponsePageDto.setList(filteredList);
+        questionResponsePageDto.setTotalElements(page.getTotalElements());
 
         return questionResponsePageDto;
     }

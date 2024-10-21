@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -29,17 +30,28 @@ public class AnswerService {
         question.ifPresentOrElse(
                 (question1 -> {
                     if (question1.isResponse()) {
-                        new BizException(ErrorCode.ALREADY_RESPONDED);
+                        throw new BizException(ErrorCode.ALREADY_RESPONDED);
                     } else {
                         question1.setResponse(true);
                     }
                 }
                 ),
-                () -> new BizException(ErrorCode.NOT_FOUND)
+                () -> {throw new BizException(ErrorCode.NOT_FOUND);}
         );
 
         answerRepository.save(answer);
         return answer;
     }
 
+    public AnswerResponseDto viewPage(long idx) {
+        Answer answer = answerRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.NOT_FOUND));
+
+        AnswerResponseDto answerResponseDto = modelMapper.map(answer, AnswerResponseDto.class);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
+        answerResponseDto.setWdate(dateTimeFormatter.format(answer.getWdate()));
+
+        answerResponseDto.setUser((answer.getUser() != null) ? answer.getUser().getName() : "탈퇴한 회원");
+
+        return answerResponseDto;
+    }
 }

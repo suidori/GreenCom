@@ -28,7 +28,7 @@ public class AttendanceController {
     @GetMapping("/student")
     public ResponseEntity<AttendanceResponsePageDto> studentFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "5") int size,
+            @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestBody AttendanceReqDto attendanceReqDto
             ){
         Sort sort = Sort.by(Sort.Direction.DESC, "idx");

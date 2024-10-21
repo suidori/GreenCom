@@ -16,7 +16,7 @@ public class AttendanceResponsePageDto {
     private List<Attendance> content;
 
     private List<AttendanceResponseDto> list;
-    private int totalElements;
+    private long totalElements;
     private int totalPages;
     private int size;
 }
