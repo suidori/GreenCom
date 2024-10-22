@@ -1,6 +1,5 @@
 package attendance.management.attendance;
 
-import attendance.management.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -16,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class AttendanceController {
 
-    private final AttendanceRepository attendanceRepository;
     private final AttendanceService attendanceService;
+
+    
 
     @PostMapping("/unlogin")
     public ResponseEntity<Attendance> unlogged(@RequestBody AttendanceReqDto attendanceReqDto) {
@@ -29,11 +29,35 @@ public class AttendanceController {
     public ResponseEntity<AttendanceResponsePageDto> studentFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
             @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestBody AttendanceReqDto attendanceReqDto
-            ){
+            @RequestHeader("Authorization") String token
+    ) {
         Sort sort = Sort.by(Sort.Direction.DESC, "idx");
         Pageable pageable = PageRequest.of(pageNum, size, sort);
-        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.studentPage(pageable, attendanceReqDto);
+        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.studentPage(pageable, token);
+        return ResponseEntity.ok(attendanceResponsePageDto);
+    }
+
+    @GetMapping("/teacher")
+    public ResponseEntity<AttendanceResponsePageDto> teacherFindAll(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestHeader("Authorization") String token
+    ) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
+        Pageable pageable = PageRequest.of(pageNum, size, sort);
+        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.teacherPage(pageable, token);
+        return ResponseEntity.ok(attendanceResponsePageDto);
+    }
+
+    @GetMapping("/manager")
+    public ResponseEntity<AttendanceResponsePageDto> managerFindAll(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestHeader("Authorization") String token
+    ) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
+        Pageable pageable = PageRequest.of(pageNum, size, sort);
+        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.managerPage(pageable);
         return ResponseEntity.ok(attendanceResponsePageDto);
     }
 

@@ -1,5 +1,6 @@
 package attendance.management.conf;
 
+import attendance.management.jwt.JWTFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JWTFilter jwtFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -38,7 +40,7 @@ public class SecurityConfig {
 
         http.authorizeRequests(auth -> auth
                 // 일반 사용자도 접근 가능하다
-                .requestMatchers("/sign/**", "/question/**", "/answer/**", "/lecture/**", "/vacation/**", "user/**", "attendance/**").permitAll()
+                .requestMatchers("/sign/**", "/question/**", "/answer/**", "/lecture/**", "/vacation/**", "/user/**", "/attendance/**").permitAll()
                 // swagger 문서...
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // STUDENT 로 role 을 가지고 있을때 접근 가능 하다.
@@ -47,6 +49,8 @@ public class SecurityConfig {
         );
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

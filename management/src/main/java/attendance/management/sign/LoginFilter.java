@@ -54,7 +54,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         for (var auth : userDetails.getAuthorities()) {
             role = auth.getAuthority();
         }
-        String jwt = jwtManager.createJWT(userDetails.getUsername(), role);
+        String jwt = jwtManager.createJWT(userDetails.getUsername(), ((LoginUserDetails) userDetails).getIdx(), role);
         response.getWriter().write(jwt);
     }
 

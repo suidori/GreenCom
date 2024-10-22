@@ -10,6 +10,7 @@ public class QuestionResponseDto {
     private String body;
     private String wdate;
     private String user;
+    private String lecture;
     private String response;
 
 }

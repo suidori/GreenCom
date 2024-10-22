@@ -43,7 +43,7 @@ public class AnswerService {
         return answer;
     }
 
-    public AnswerResponseDto viewPage(long idx) {
+    public AnswerResponseDto view(long idx) {
         Answer answer = answerRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.NOT_FOUND));
 
         AnswerResponseDto answerResponseDto = modelMapper.map(answer, AnswerResponseDto.class);

@@ -7,6 +7,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.hibernate.annotations.Filter;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -39,23 +41,25 @@ public class JWTFilter extends OncePerRequestFilter {
         // jwt 토큰이 넘어 오면...
         else {
             try {
+                System.out.println("여기오나");
                 // Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFhYUBuYXZlci5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcyODYxMjAzNCwiZXhwIjoxNzI4Njk4NDM0fQ.DImwEJGtTTQfm4I2cxiFHV3R3ZxnYiPCl-Vw2MFUkYg
                 String token = auth.split(" ")[1];
                 // token 이 유효한지 검사해서 해당되는 userid, role 정보들을 가지고 옵니다.
                 Jws<Claims> claims = jwtManager.getClaims(token);
                 String userid = claims.getBody().get("userid").toString();
                 String role = claims.getBody().get("role").toString();
+                Long userIdx = claims.getBody().get("useridx", Long.class);
                 System.out.println(role);
-                LoginUserDetails loginUserDetails = new LoginUserDetails(userid,null, role);
+                LoginUserDetails loginUserDetails = new LoginUserDetails(userid,null, role, userIdx);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(
                         loginUserDetails, null,
-                        // ROLE_ADMIN
                         loginUserDetails.getAuthorities()
                 );
 
                 // 로그인설정
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
+                e.printStackTrace();
 //                System.out.println(e.getMessage());
 //                throw new AuthException(e.getMessage());
             }

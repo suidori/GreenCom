@@ -1,9 +1,5 @@
 package attendance.management.sign;
 
-import attendance.management.error.BizException;
-import attendance.management.error.ErrorCode;
-import attendance.management.lecture.Lecture;
-import attendance.management.lecture.LectureRepository;
 import attendance.management.user.User;
 import attendance.management.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

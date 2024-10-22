@@ -23,7 +23,7 @@ public class AnswerController {
 
     @GetMapping("view/{idx}")
     public ResponseEntity<AnswerResponseDto> findOne(@PathVariable(name = "idx") long idx) {
-        AnswerResponseDto answerResponseDto = answerService.viewPage(idx);
+        AnswerResponseDto answerResponseDto = answerService.view(idx);
         return ResponseEntity.ok(answerResponseDto);
     }
 

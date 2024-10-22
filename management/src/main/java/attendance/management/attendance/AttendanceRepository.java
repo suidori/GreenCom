@@ -6,4 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Page<Attendance> findByUser_Idx(Long userId, Pageable pageable);
+    Page<Attendance> findByLecture_Idx(Long lectureId, Pageable pageable);
 }

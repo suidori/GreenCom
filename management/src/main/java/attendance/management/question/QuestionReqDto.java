@@ -10,5 +10,4 @@ public class QuestionReqDto {
 
     private String body;
 
-    private User user;
 }

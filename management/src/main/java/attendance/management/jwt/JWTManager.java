@@ -20,10 +20,11 @@ public class JWTManager {
     private final Environment environment;
 
     // JWT 생성
-    public String createJWT(String userid, String role) {
+    public String createJWT(String userid, long useridx, String role) {
         String secrekey = environment.getProperty("spring.jwt.secret");
         String jwt = Jwts.builder()
                 .claim("userid", userid)
+                .claim("useridx", useridx)
                 .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis())) // 현재 시간 넣기
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 1초*60*60*24 1일 유효함
@@ -71,4 +72,15 @@ public class JWTManager {
             return null;
         }
     }
+
+    public Long extractUserIdxFromToken(String token) {
+        String jwtToken = token.replace("Bearer ", "");
+
+        Jws<Claims> claims = Jwts.parser()
+                .setSigningKey(Base64.getEncoder().encodeToString("mySuperSecretKey".getBytes()))
+                .parseClaimsJws(jwtToken);
+
+        return claims.getBody().get("useridx", Long.class);
+    }
+
 }

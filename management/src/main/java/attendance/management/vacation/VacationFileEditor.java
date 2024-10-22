@@ -41,7 +41,7 @@ public class VacationFileEditor {
                     body[2] = vacation1.getUser().getName();
                     body[3] = vacation1.getPersonalNum();
                     body[4] = vacation1.getReason();
-                    body[5] = vacation1.getDate();
+                    body[5] = vacation1.getStartdate().toString() + " ~ " + vacation1.getEnddate().toString();
                     body[6] = vacation1.getPhonecall();
                 }),
                 () -> {
@@ -72,6 +72,10 @@ public class VacationFileEditor {
         String title = nowDate + '_' + body[2] + "_휴가신청서(" + count + ").hwp";
 
         HWPWriter.toFile(hwpFile, savePath(title));
+
+        Vacation titlesave = vacation.get();
+        titlesave.setHwpfile(title);
+        vacationRepository.save(titlesave);
 
         return title;
 

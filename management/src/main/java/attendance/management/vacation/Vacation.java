@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -33,12 +34,16 @@ public class Vacation {
 
     private String reason;
 
-    private String date;
+    private LocalDate startdate;
+
+    private LocalDate enddate;
 
     private LocalDate wdate;
 
     private String phonecall;
 
     private boolean accept;
+
+    private String hwpfile;
 
 }

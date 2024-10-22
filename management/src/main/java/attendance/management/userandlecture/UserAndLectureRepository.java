@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserAndLectureRepository extends JpaRepository<UserAndLecture, Long> {
     Optional<UserAndLecture> findByUser(User user);
+    Optional<UserAndLecture> findByUser_Idx(Long userIdx);
 }

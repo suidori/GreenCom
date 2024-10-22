@@ -2,6 +2,7 @@ package attendance.management.vacation;
 
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
+import attendance.management.jwt.JWTManager;
 import attendance.management.userandlecture.UserAndLecture;
 import attendance.management.userandlecture.UserAndLectureRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +10,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,36 +32,36 @@ public class VacationService {
     private final ModelMapper modelMapper;
     private final VacationFileEditor vacationFileEditor;
     private final UserAndLectureRepository userAndLectureRepository;
+    private final JWTManager jwtManager;
 
-    public VacationResponseDto request(VacationReqDto vacationReqDto) {
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser(vacationReqDto.getUser());
+
+    public VacationResponseDto request(VacationReqDto vacationReqDto, String token) {
+        Long userIdx = jwtManager.extractUserIdxFromToken(token);
+
+        Vacation vacation = modelMapper.map(vacationReqDto, Vacation.class);
+
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
         userAndLecture.ifPresentOrElse(
                 userAndLecture1 -> {
-                    vacationReqDto.setLecture(userAndLecture1.getLecture());
-                    vacationReqDto.setUser(userAndLecture1.getUser());
+                    vacation.setLecture(userAndLecture1.getLecture());
+                    vacation.setUser(userAndLecture1.getUser());
                 },
                 () -> {
                     throw new BizException(ErrorCode.USER_NOT_FOUND);
                 }
         );
-
-        Vacation vacation = modelMapper.map(vacationReqDto, Vacation.class);
         vacation.setWdate(LocalDate.now());
         vacation.setAccept(false);
+        vacation.setStartdate(LocalDate.parse(vacationReqDto.getStartdate()));
+        vacation.setEnddate(LocalDate.parse(vacationReqDto.getEnddate()));
         vacationRepository.save(vacation);
 
-        VacationResponseDto vacationResponseDto = VacationResponseDto
-                .builder()
-                .idx(vacation.getIdx())
-                .user(vacation.getUser().getName())
-                .date(vacation.getDate())
-                .wdate(vacation.getWdate().toString())
-                .reason(vacation.getReason())
-                .lecture(vacation.getLecture().getTitle())
-                .personalNum(vacation.getPersonalNum())
-                .phonecall(vacation.getPhonecall())
-                .build();
-
+        VacationResponseDto vacationResponseDto = modelMapper.map(vacationReqDto, VacationResponseDto.class);
+        vacationResponseDto.setIdx(vacation.getIdx());
+        vacationResponseDto.setUser(vacation.getUser().getName());
+        vacationResponseDto.setLecture(vacation.getLecture().getTitle());
+        vacationResponseDto.setWdate(vacation.getWdate().toString());
+        vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
         return vacationResponseDto;
     }
 
@@ -75,15 +81,115 @@ public class VacationService {
         return vacationFileEditor.newHWP(idx);
     }
 
-    public Resource download(String fileName) throws IOException {
-        Path filePath = Paths.get("request_hwp", fileName);
+    public VacationFileDto download(long idx) throws IOException {
+        Optional<Vacation> vacation = vacationRepository.findById(idx);
+        final String[] fileName = new String[1];
+        vacation.ifPresentOrElse(
+                vacation1 -> {
+                    fileName[0] = vacation1.getHwpfile();
+                },
+                () -> {
+                    throw new BizException(ErrorCode.FILE_NOT_FOUND);
+                }
+        );
+        Path filePath = Paths.get("request_hwp", fileName[0]);
         Resource resource = new UrlResource(filePath.toUri());
 
         if (!resource.exists()) {
             throw new BizException(ErrorCode.FILE_NOT_FOUND);
         }
 
-        return resource;
+        return new VacationFileDto(resource, fileName[0]);
+    }
+
+    public VacationResponsePageDto studentPage(Pageable pageable, String token) {
+        Long userIdx = jwtManager.extractUserIdxFromToken(token);
+
+        Page<Vacation> page = vacationRepository.findByUser_Idx(userIdx, pageable);
+
+        List<VacationResponseDto> filteredList = page
+                .getContent()
+                .stream()
+                .map(vacation -> {
+                    VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+                    vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
+                    vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
+                    vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
+                    vacationResponseDto.setUser(vacation.getUser().getName());
+                    vacationResponseDto.setLecture(vacation.getLecture().getTitle());
+                    vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
+                    return vacationResponseDto;
+                })
+                .collect(Collectors.toList());
+
+        VacationResponsePageDto vacationResponsePageDto = modelMapper.map(page, VacationResponsePageDto.class);
+        vacationResponsePageDto.setList(filteredList);
+        vacationResponsePageDto.setTotalElements(page.getTotalElements());
+
+        return vacationResponsePageDto;
+    }
+
+    public VacationResponsePageDto managerPage(Pageable pageable) {
+
+        Page<Vacation> page = vacationRepository.findAll(pageable);
+
+        List<VacationResponseDto> filteredList = page
+                .getContent()
+                .stream()
+                .map(vacation -> {
+                    VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+                    vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
+                    vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
+                    vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
+                    vacationResponseDto.setUser(vacation.getUser().getName());
+                    vacationResponseDto.setLecture(vacation.getLecture().getTitle());
+                    vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
+                    return vacationResponseDto;
+                })
+                .collect(Collectors.toList());
+
+        VacationResponsePageDto vacationResponsePageDto = modelMapper.map(page, VacationResponsePageDto.class);
+        vacationResponsePageDto.setList(filteredList);
+        vacationResponsePageDto.setTotalElements(page.getTotalElements());
+
+        return vacationResponsePageDto;
+    }
+
+    public VacationResponsePageDto teacherPage(Pageable pageable, String token){
+        Long userIdx = jwtManager.extractUserIdxFromToken(token);
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
+        final long[] lectureIdx = new long[1];
+        userAndLecture.ifPresentOrElse(
+                userAndLecture1 -> {lectureIdx[0] = userAndLecture1.getIdx();},
+                ()->{throw new BizException(ErrorCode.USER_NOT_FOUND);}
+        );
+
+        Page<Vacation> page = vacationRepository.findByLecture_Idx(lectureIdx[0], pageable);
+
+        List<VacationResponseDto> filteredList = page
+                .getContent()
+                .stream()
+                .map(vacation -> {
+                    VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+                    vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
+                    vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
+                    vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
+                    vacationResponseDto.setUser(vacation.getUser().getName());
+                    vacationResponseDto.setLecture(vacation.getLecture().getTitle());
+                    vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
+                    return vacationResponseDto;
+                })
+                .collect(Collectors.toList());
+
+        VacationResponsePageDto vacationResponsePageDto = modelMapper.map(page, VacationResponsePageDto.class);
+        vacationResponsePageDto.setList(filteredList);
+        vacationResponsePageDto.setTotalElements(page.getTotalElements());
+
+        return vacationResponsePageDto;
+
     }
 
 }
