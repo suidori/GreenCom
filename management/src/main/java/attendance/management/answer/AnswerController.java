@@ -16,9 +16,11 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @PostMapping("save")
-    public ResponseEntity<Answer> save(@Valid @RequestBody AnswerReqDto answerReqDto) {
-        Answer answer = answerService.save(answerReqDto);
-        return ResponseEntity.status(200).body(answer);
+    public ResponseEntity<Answer> save(@Valid @RequestBody AnswerReqDto answerReqDto,
+                                       @RequestHeader("Authorization") String token
+    ) {
+        Answer answer = answerService.save(answerReqDto, token);
+        return ResponseEntity.ok(answer);
     }
 
     @GetMapping("view/{idx}")

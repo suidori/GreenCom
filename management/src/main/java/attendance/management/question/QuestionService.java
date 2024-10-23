@@ -15,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,44 +34,15 @@ public class QuestionService {
         question.setWdate(LocalDateTime.now());
         question.setResponse(false);
 
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
-        userAndLecture.ifPresentOrElse(
-                userAndLecture1 -> {
-                    question.setUser(userAndLecture1.getUser());
-                    question.setLecture(userAndLecture1.getLecture());
-                },
-                () -> {
-                    throw new BizException(ErrorCode.USER_NOT_FOUND);
-                }
-        );
+        UserAndLecture userAndLecture = userAndLectureRepository
+                .findByUser_IdxAndState(userIdx, 1)
+                .orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND));
+
+        question.setUser(userAndLecture.getUser());
+        question.setLecture(userAndLecture.getLecture());
 
         questionRepository.save(question);
         return question;
-    }
-
-    public QuestionResponsePageDto questionPage(Pageable pageable) {
-        Page<Question> page = questionRepository.findAll(pageable);
-
-        QuestionResponsePageDto questionResponsePageDto = modelMapper.map(page, QuestionResponsePageDto.class);
-
-        List<QuestionResponseDto> list = questionResponsePageDto
-                .getContent()
-                .stream()
-                .map(question -> {
-                    QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
-
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
-                    questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
-
-                    questionResponseDto.setUser((question.getUser()!=null) ? question.getUser().getName() : "탈퇴한 회원");
-                    questionResponseDto.setResponse(question.isResponse() ? "답변 완료" : "답변 대기중");
-                    questionResponseDto.setLecture(question.getLecture().getTitle());
-
-                    return questionResponseDto;
-                }).toList();
-        questionResponsePageDto.setList(list);
-
-        return questionResponsePageDto;
     }
 
     public QuestionResponsePageDto studentPage(Pageable pageable, String token) {
@@ -81,84 +50,28 @@ public class QuestionService {
 
         Page<Question> page = questionRepository.findByUser_Idx(userIdx, pageable);
 
-        List<QuestionResponseDto> filteredList = page
-                .getContent()
-                .stream()
-                .map(question -> {
-                    QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
-                    questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
-                    questionResponseDto.setResponse(question.isResponse() ? "답변 완료" : "답변 대기중");
-                    questionResponseDto.setUser((question.getUser() != null) ? question.getUser().getName() : "탈퇴한 회원");
-                    questionResponseDto.setLecture(question.getLecture().getTitle());
-                    return questionResponseDto;
-                })
-                .collect(Collectors.toList());
-
-        QuestionResponsePageDto questionResponsePageDto = modelMapper.map(page, QuestionResponsePageDto.class);
-        questionResponsePageDto.setList(filteredList);
-        questionResponsePageDto.setTotalElements(page.getTotalElements());
-
-        return questionResponsePageDto;
+        return mapToQuestionResponsePageDto(page);
     }
 
     public QuestionResponsePageDto teacherPage(Pageable pageable, String token) {
         Long userIdx = jwtManager.extractUserIdxFromToken(token);
-        final Long[] lectureIdx = new Long[1];
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
-        userAndLecture.ifPresentOrElse(
-                userAndLecture1 -> {
-                    lectureIdx[0] = userAndLecture1.getLecture().getIdx();},
-                ()-> {throw new BizException(ErrorCode.USER_NOT_FOUND);}
-        );
 
-        Page<Question> page = questionRepository.findByLecture_Idx(lectureIdx[0], pageable);
+        long lectureIdx = userAndLectureRepository
+                .findByUser_Idx(userIdx)
+                .orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND))
+                .getLecture()
+                .getIdx();
 
-        List<QuestionResponseDto> filteredList = page
-                .getContent()
-                .stream()
-                .map(question -> {
-                    QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
-                    questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
-                    questionResponseDto.setResponse(question.isResponse() ? "답변 완료" : "답변 대기중");
-                    questionResponseDto.setUser((question.getUser() != null) ? question.getUser().getName() : "탈퇴한 회원");
-                    questionResponseDto.setLecture(question.getLecture().getTitle());
-                    return questionResponseDto;
-                })
-                .collect(Collectors.toList());
+        Page<Question> page = questionRepository.findByLecture_Idx(lectureIdx, pageable);
 
-        QuestionResponsePageDto questionResponsePageDto = modelMapper.map(page, QuestionResponsePageDto.class);
-        questionResponsePageDto.setList(filteredList);
-        questionResponsePageDto.setTotalElements(page.getTotalElements());
-
-        return questionResponsePageDto;
+        return mapToQuestionResponsePageDto(page);
     }
 
     public QuestionResponsePageDto managerPage(Pageable pageable) {
 
         Page<Question> page = questionRepository.findAll(pageable);
 
-        QuestionResponsePageDto questionResponsePageDto = modelMapper.map(page, QuestionResponsePageDto.class);
-
-        List<QuestionResponseDto> list = questionResponsePageDto
-                .getContent()
-                .stream()
-                .map(question -> {
-                    QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
-
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
-                    questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
-
-                    questionResponseDto.setUser((question.getUser()!=null) ? question.getUser().getName() : "탈퇴한 회원");
-                    questionResponseDto.setResponse(question.isResponse() ? "답변 완료" : "답변 대기중");
-                    questionResponseDto.setLecture(question.getLecture().getTitle());
-
-                    return questionResponseDto;
-                }).toList();
-        questionResponsePageDto.setList(list);
-
-        return questionResponsePageDto;
+        return mapToQuestionResponsePageDto(page);
     }
 
     public QuestionResponseDto viewPage(long idx) {
@@ -168,13 +81,35 @@ public class QuestionService {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
 
-        questionResponseDto.setUser((question.getUser()!=null) ? question.getUser().getName() : "탈퇴한 회원");
+        questionResponseDto.setUser((question.getUser() != null) ? question.getUser().getName() : "탈퇴한 회원");
         questionResponseDto.setResponse(question.isResponse() ? "답변 완료" : "답변 대기중");
 
         return questionResponseDto;
 
     }
 
+    private QuestionResponsePageDto mapToQuestionResponsePageDto(Page<Question> page) {
 
+        List<QuestionResponseDto> list = page
+                .getContent()
+                .stream()
+                .map(question -> {
+                    QuestionResponseDto questionResponseDto = modelMapper.map(question, QuestionResponseDto.class);
+
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
+                    questionResponseDto.setWdate(dateTimeFormatter.format(question.getWdate()));
+
+                    questionResponseDto.setUser((question.getUser() != null) ? question.getUser().getName() : "탈퇴한 회원");
+                    questionResponseDto.setResponse(question.isResponse() ? "답변 완료" : "답변 대기중");
+                    questionResponseDto.setLecture(question.getLecture().getTitle());
+
+                    return questionResponseDto;
+                }).toList();
+
+        QuestionResponsePageDto questionResponsePageDto = modelMapper.map(page, QuestionResponsePageDto.class);
+        questionResponsePageDto.setList(list);
+
+        return questionResponsePageDto;
+    }
 
 }

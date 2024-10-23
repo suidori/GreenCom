@@ -2,12 +2,11 @@ package attendance.management.lecture;
 
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
+import attendance.management.jwt.JWTManager;
 import attendance.management.user.User;
 import attendance.management.user.UserRepository;
-import attendance.management.user.UserReqDto;
 import attendance.management.userandlecture.UserAndLecture;
 import attendance.management.userandlecture.UserAndLectureRepository;
-import attendance.management.userandlecture.UserAndLectureReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -24,6 +23,7 @@ public class LectureService {
     private final ModelMapper modelMapper;
     private final LectureRepository lectureRepository;
     private final UserAndLectureRepository userAndLectureRepository;
+    private final JWTManager jwtManager;
     private final UserRepository userRepository;
 
     public Lecture save(LectureReqDto lectureReqDto) {
@@ -44,28 +44,40 @@ public class LectureService {
         return lecture;
     }
 
-    public UserAndLecture join(LectureJoinReqDto lectureJoinReqDto) {
-        UserAndLecture userAndLecture = new UserAndLecture();
-        Optional<Lecture> lecture = lectureRepository.findByTitle(lectureJoinReqDto.getLectureReqDto().getTitle());
-        lecture.ifPresentOrElse(
-                lecture1 -> {
-                    if (lecture1.getPassword().equals(lectureJoinReqDto.getLectureReqDto().getPassword())) {
-                        userAndLecture.setLecture(lecture1);
-                    } else {
-                        new BizException(ErrorCode.PASSWORD_MISMATCH);
-                    }
-                },
-                () -> new BizException(ErrorCode.LECTURE_NOT_FOUND)
-        );
-        Optional<User> user = userRepository.findByNameAndUserid(lectureJoinReqDto.getUserReqDto().getName(), lectureJoinReqDto.getUserReqDto().getUserid());
-        user.ifPresentOrElse(
-                userAndLecture::setUser,
-                () -> new BizException(ErrorCode.USER_NOT_FOUND)
+    public UserAndLecture join(LectureReqDto lectureReqDto, String token) {
+        Lecture lecture = lectureRepository
+                .findByTitle(lectureReqDto.getTitle())
+                .orElseThrow(() -> new BizException(ErrorCode.LECTURE_NOT_FOUND));
+
+        if (!lecture.isEnable()) {
+            throw new BizException(ErrorCode.LECTURE_NOT_ENABLE);
+        }
+
+        if(!lecture.getPassword().equals(lectureReqDto.getPassword())) {
+            throw new BizException(ErrorCode.PASSWORD_MISMATCH);
+        }
+
+        Long userIdx = jwtManager.extractUserIdxFromToken(token);
+
+        User user = userRepository
+                .findById(userIdx)
+                .orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND));
+
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(userIdx,1);
+
+        userAndLecture.ifPresent(
+                userAndLecture1 -> userAndLecture1.setState(0)
         );
 
-        userAndLectureRepository.save(userAndLecture);
+        UserAndLecture userAndLecture1 = UserAndLecture.builder()
+                .user(user)
+                .lecture(lecture)
+                .state(1)
+                .build();
 
-        return userAndLecture;
+        userAndLectureRepository.save(userAndLecture1);
+
+        return userAndLecture1;
     }
 
 }

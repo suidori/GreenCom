@@ -19,7 +19,6 @@ import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,19 +33,16 @@ public class VacationFileEditor {
         String[] content = new String[]{"훈련과정명", "훈련기간", "성명", "주민등록번호", "사유", "희망일자", "비상연락망"};
         String[] body = new String[7];
 
-        Optional<Vacation> vacation = vacationRepository.findById(idx);
-        vacation.ifPresentOrElse((vacation1 -> {
-                    body[0] = vacation1.getLecture().getTitle();
-                    body[1] = vacation1.getLecture().getStartDate() + " ~ " + vacation1.getLecture().getEndDate();
-                    body[2] = vacation1.getUser().getName();
-                    body[3] = vacation1.getPersonalNum();
-                    body[4] = vacation1.getReason();
-                    body[5] = vacation1.getStartdate().toString() + " ~ " + vacation1.getEnddate().toString();
-                    body[6] = vacation1.getPhonecall();
-                }),
-                () -> {
-                    new BizException(ErrorCode.REQUEST_NOT_FOUND);
-                });
+        Vacation vacation = vacationRepository.findById(idx).orElseThrow(() -> new BizException(ErrorCode.REQUEST_NOT_FOUND));
+
+        body[0] = vacation.getLecture().getTitle();
+        body[1] = vacation.getLecture().getStartDate() + " ~ " + vacation.getLecture().getEndDate();
+        body[2] = vacation.getUser().getName();
+        body[3] = vacation.getPersonalNum();
+        body[4] = vacation.getReason();
+        body[5] = vacation.getStartdate().toString() + " ~ " + vacation.getEnddate().toString();
+        body[6] = vacation.getPhonecall();
+
 
         for (int i = 0; i < 7; i++) {
             setCellTextByField(hwpFile, content[i], body[i]);
@@ -73,9 +69,8 @@ public class VacationFileEditor {
 
         HWPWriter.toFile(hwpFile, savePath(title));
 
-        Vacation titlesave = vacation.get();
-        titlesave.setHwpfile(title);
-        vacationRepository.save(titlesave);
+        vacation.setHwpfile(title);
+        vacationRepository.save(vacation);
 
         return title;
 

@@ -14,4 +14,5 @@ public class VacationResponseDto {
     private String wdate;
     private String phonecall;
     private String accept;
+    private String hwpfile;
 }

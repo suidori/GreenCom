@@ -1,7 +1,5 @@
 package attendance.management.lecture;
 
-import attendance.management.user.User;
-import attendance.management.user.UserReqDto;
 import attendance.management.userandlecture.UserAndLecture;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +14,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("lecture")
 public class LectureController {
 
-    private final LectureRepository lectureRepository;
     private final LectureService lectureService;
 
     @PostMapping("save")
     public ResponseEntity<Lecture> save(@Valid @RequestBody LectureReqDto lectureReqDto){
         Lecture lecture = lectureService.save(lectureReqDto);
-        return ResponseEntity.status(200).body(lecture);
+        return ResponseEntity.ok(lecture);
     }
 
     @PostMapping("join")
-    public ResponseEntity<UserAndLecture> join(@RequestBody LectureJoinReqDto lectureJoinReqDto){
-        UserAndLecture lecture = lectureService.join(lectureJoinReqDto);
-        return ResponseEntity.status(200).body(lecture);
+    public ResponseEntity<UserAndLecture> join(@RequestBody LectureReqDto lectureReqDto,
+                                               @RequestHeader("Authorization") String token){
+        UserAndLecture lecture = lectureService.join(lectureReqDto, token);
+        return ResponseEntity.ok(lecture);
     }
 
 }

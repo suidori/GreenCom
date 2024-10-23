@@ -1,13 +1,9 @@
 package attendance.management.vacation;
 
-import attendance.management.error.BizException;
-import attendance.management.error.ErrorCode;
-import attendance.management.question.QuestionReqDto;
+import attendance.management.utility.PageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,7 +31,13 @@ public class VacationController {
             @RequestHeader("Authorization") String token
     ) {
         VacationResponseDto vacationResponseDto = vacationService.request(vacationReqDto, token);
-        return ResponseEntity.status(200).body(vacationResponseDto);
+        return ResponseEntity.ok(vacationResponseDto);
+    }
+
+    @GetMapping("view/{idx}")
+    public ResponseEntity<VacationResponseDto> findOne(@PathVariable(name = "idx") long idx) {
+        VacationResponseDto vacationResponseDto = vacationService.viewPage(idx);
+        return ResponseEntity.ok(vacationResponseDto);
     }
 
     @GetMapping("/student")
@@ -44,9 +46,7 @@ public class VacationController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestHeader("Authorization") String token
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        VacationResponsePageDto vacationResponsePageDto = vacationService.studentPage(pageable, token);
+        VacationResponsePageDto vacationResponsePageDto = vacationService.studentPage(PageUtil.getPageable(pageNum, size), token);
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
@@ -56,9 +56,7 @@ public class VacationController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestHeader("Authorization") String token
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        VacationResponsePageDto vacationResponsePageDto = vacationService.teacherPage(pageable, token);
+        VacationResponsePageDto vacationResponsePageDto = vacationService.teacherPage(PageUtil.getPageable(pageNum, size), token);
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
@@ -66,9 +64,7 @@ public class VacationController {
     public ResponseEntity<VacationResponsePageDto> managerFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
             @RequestParam(name = "size", defaultValue = "10") int size){
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        VacationResponsePageDto vacationResponsePageDto = vacationService.managerPage(pageable);
+        VacationResponsePageDto vacationResponsePageDto = vacationService.managerPage(PageUtil.getPageable(pageNum, size));
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
@@ -76,7 +72,8 @@ public class VacationController {
     @PostMapping("/accept/{idx}")
     public ResponseEntity<String> accept(@PathVariable long idx) throws Exception {
         vacationService.accept(idx);
-        return ResponseEntity.status(200).body(vacationService.newHWP(idx));
+        String hwpName = vacationService.newHWP(idx);
+        return ResponseEntity.ok(hwpName);
     }
 
     @GetMapping("/download/hwp/{idx}")
@@ -89,6 +86,5 @@ public class VacationController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(vacationFileDto.getFileName(), StandardCharsets.UTF_8) + "\"")
                 .body(vacationFileDto.getResource());
     }
-
 
 }

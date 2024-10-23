@@ -2,8 +2,11 @@ package attendance.management.answer;
 
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
+import attendance.management.jwt.JWTManager;
 import attendance.management.question.Question;
 import attendance.management.question.QuestionRepository;
+import attendance.management.user.User;
+import attendance.management.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -21,30 +24,32 @@ public class AnswerService {
     private final ModelMapper modelMapper;
     private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
+    private final JWTManager jwtManager;
+    private final UserRepository userRepository;
 
-    public Answer save(AnswerReqDto answerReqDto) {
-        Answer answer = modelMapper.map(answerReqDto, Answer.class);
-        answer.setWdate((LocalDateTime.now()));
-        Optional<Question> question = questionRepository.findById(answer.getQuestion().getIdx());
+    public Answer save(AnswerReqDto answerReqDto, String token) {
+        long userIdx = jwtManager.extractUserIdxFromToken(token);
 
-        question.ifPresentOrElse(
-                (question1 -> {
-                    if (question1.isResponse()) {
-                        throw new BizException(ErrorCode.ALREADY_RESPONDED);
-                    } else {
-                        question1.setResponse(true);
-                    }
-                }
-                ),
-                () -> {throw new BizException(ErrorCode.NOT_FOUND);}
-        );
+        User user = userRepository
+                .findById(userIdx)
+                .orElseThrow(() -> new BizException(ErrorCode.NOT_FOUND));
+        Question question = questionRepository
+                .findById(answerReqDto.getIdx())
+                .orElseThrow(() -> new BizException(ErrorCode.NOT_FOUND));
+
+        Answer answer = Answer.builder()
+                .body(answerReqDto.getBody())
+                .wdate(LocalDateTime.now())
+                .user(user)
+                .question(question)
+                .build();
 
         answerRepository.save(answer);
         return answer;
     }
 
     public AnswerResponseDto view(long idx) {
-        Answer answer = answerRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.NOT_FOUND));
+        Answer answer = answerRepository.findById(idx).orElseThrow(() -> new BizException(ErrorCode.NOT_FOUND));
 
         AnswerResponseDto answerResponseDto = modelMapper.map(answer, AnswerResponseDto.class);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");

@@ -27,6 +27,6 @@ public class UserAndLecture {
     @JoinColumn(name = "lecture")
     private Lecture lecture;
 
-    private boolean state;
+    private int state;
 
 }

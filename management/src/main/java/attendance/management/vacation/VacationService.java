@@ -5,6 +5,8 @@ import attendance.management.error.ErrorCode;
 import attendance.management.jwt.JWTManager;
 import attendance.management.userandlecture.UserAndLecture;
 import attendance.management.userandlecture.UserAndLectureRepository;
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.Dispatch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -12,16 +14,22 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.io.File;
+import java.nio.file.Files;
 
 @Service
 @RequiredArgsConstructor
@@ -40,16 +48,10 @@ public class VacationService {
 
         Vacation vacation = modelMapper.map(vacationReqDto, Vacation.class);
 
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
-        userAndLecture.ifPresentOrElse(
-                userAndLecture1 -> {
-                    vacation.setLecture(userAndLecture1.getLecture());
-                    vacation.setUser(userAndLecture1.getUser());
-                },
-                () -> {
-                    throw new BizException(ErrorCode.USER_NOT_FOUND);
-                }
-        );
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(userIdx, 1);
+        userAndLecture.orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND));
+        vacation.setLecture(userAndLecture.get().getLecture());
+        vacation.setUser(userAndLecture.get().getUser());
         vacation.setWdate(LocalDate.now());
         vacation.setAccept(false);
         vacation.setStartdate(LocalDate.parse(vacationReqDto.getStartdate()));
@@ -65,16 +67,24 @@ public class VacationService {
         return vacationResponseDto;
     }
 
-    public Vacation accept(long idx) {
-        Optional<Vacation> vacation = vacationRepository.findById(idx);
-        vacation.ifPresentOrElse(vacation1 -> {
-                    vacation1.setAccept(true);
-                    vacationRepository.save(vacation1);
-                },
-                () -> {
-                    throw new BizException(ErrorCode.REQUEST_NOT_FOUND);
-                });
-        return vacation.get();
+    public VacationResponseDto viewPage(long idx) {
+        Vacation vacation = vacationRepository.findById(idx).orElseThrow(() -> new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+        vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
+        vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
+        vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
+        vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
+        vacationResponseDto.setUser(vacation.getUser().getName());
+        vacationResponseDto.setLecture(vacation.getLecture().getTitle());
+
+        return vacationResponseDto;
+    }
+
+    public void accept(long idx) {
+        Vacation vacation = vacationRepository.findById(idx).orElseThrow(() -> new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        vacation.setAccept(true);
+        vacationRepository.save(vacation);
     }
 
     public String newHWP(long idx) throws Exception {
@@ -83,23 +93,15 @@ public class VacationService {
 
     public VacationFileDto download(long idx) throws IOException {
         Optional<Vacation> vacation = vacationRepository.findById(idx);
-        final String[] fileName = new String[1];
-        vacation.ifPresentOrElse(
-                vacation1 -> {
-                    fileName[0] = vacation1.getHwpfile();
-                },
-                () -> {
-                    throw new BizException(ErrorCode.FILE_NOT_FOUND);
-                }
-        );
-        Path filePath = Paths.get("request_hwp", fileName[0]);
+        String fileName = vacation.orElseThrow(() -> new BizException(ErrorCode.FILE_NOT_FOUND)).getHwpfile();
+        Path filePath = Paths.get("request_hwp", fileName);
         Resource resource = new UrlResource(filePath.toUri());
 
         if (!resource.exists()) {
             throw new BizException(ErrorCode.FILE_NOT_FOUND);
         }
 
-        return new VacationFileDto(resource, fileName[0]);
+        return new VacationFileDto(resource, fileName);
     }
 
     public VacationResponsePageDto studentPage(Pageable pageable, String token) {
@@ -107,70 +109,29 @@ public class VacationService {
 
         Page<Vacation> page = vacationRepository.findByUser_Idx(userIdx, pageable);
 
-        List<VacationResponseDto> filteredList = page
-                .getContent()
-                .stream()
-                .map(vacation -> {
-                    VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
-                    vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
-                    vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
-                    vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
-                    vacationResponseDto.setUser(vacation.getUser().getName());
-                    vacationResponseDto.setLecture(vacation.getLecture().getTitle());
-                    vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
-                    return vacationResponseDto;
-                })
-                .collect(Collectors.toList());
-
-        VacationResponsePageDto vacationResponsePageDto = modelMapper.map(page, VacationResponsePageDto.class);
-        vacationResponsePageDto.setList(filteredList);
-        vacationResponsePageDto.setTotalElements(page.getTotalElements());
-
-        return vacationResponsePageDto;
+        return mapToVacationResponsePageDto(page);
     }
 
     public VacationResponsePageDto managerPage(Pageable pageable) {
 
         Page<Vacation> page = vacationRepository.findAll(pageable);
 
-        List<VacationResponseDto> filteredList = page
-                .getContent()
-                .stream()
-                .map(vacation -> {
-                    VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
-                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
-                    vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
-                    vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
-                    vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
-                    vacationResponseDto.setUser(vacation.getUser().getName());
-                    vacationResponseDto.setLecture(vacation.getLecture().getTitle());
-                    vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
-                    return vacationResponseDto;
-                })
-                .collect(Collectors.toList());
-
-        VacationResponsePageDto vacationResponsePageDto = modelMapper.map(page, VacationResponsePageDto.class);
-        vacationResponsePageDto.setList(filteredList);
-        vacationResponsePageDto.setTotalElements(page.getTotalElements());
-
-        return vacationResponsePageDto;
+        return mapToVacationResponsePageDto(page);
     }
 
-    public VacationResponsePageDto teacherPage(Pageable pageable, String token){
+    public VacationResponsePageDto teacherPage(Pageable pageable, String token) {
         Long userIdx = jwtManager.extractUserIdxFromToken(token);
         Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
-        final long[] lectureIdx = new long[1];
-        userAndLecture.ifPresentOrElse(
-                userAndLecture1 -> {lectureIdx[0] = userAndLecture1.getIdx();},
-                ()->{throw new BizException(ErrorCode.USER_NOT_FOUND);}
-        );
+        long lectureIdx = userAndLecture.orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND)).getLecture().getIdx();
 
-        Page<Vacation> page = vacationRepository.findByLecture_Idx(lectureIdx[0], pageable);
+        Page<Vacation> page = vacationRepository.findByLecture_Idx(lectureIdx, pageable);
 
-        List<VacationResponseDto> filteredList = page
-                .getContent()
-                .stream()
+        return mapToVacationResponsePageDto(page);
+
+    }
+
+    private VacationResponsePageDto mapToVacationResponsePageDto(Page<Vacation> page) {
+        List<VacationResponseDto> filteredList = page.getContent().stream()
                 .map(vacation -> {
                     VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
@@ -189,7 +150,6 @@ public class VacationService {
         vacationResponsePageDto.setTotalElements(page.getTotalElements());
 
         return vacationResponsePageDto;
-
     }
-
 }
+

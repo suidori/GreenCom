@@ -1,5 +1,6 @@
 package attendance.management.attendance;
 
+import attendance.management.utility.PageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -31,9 +32,7 @@ public class AttendanceController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestHeader("Authorization") String token
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.studentPage(pageable, token);
+        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.studentPage(PageUtil.getPageable(pageNum, size), token);
         return ResponseEntity.ok(attendanceResponsePageDto);
     }
 
@@ -43,9 +42,7 @@ public class AttendanceController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestHeader("Authorization") String token
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.teacherPage(pageable, token);
+        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.teacherPage(PageUtil.getPageable(pageNum, size), token);
         return ResponseEntity.ok(attendanceResponsePageDto);
     }
 
@@ -55,9 +52,7 @@ public class AttendanceController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestHeader("Authorization") String token
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.managerPage(pageable);
+        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.managerPage(PageUtil.getPageable(pageNum, size));
         return ResponseEntity.ok(attendanceResponsePageDto);
     }
 

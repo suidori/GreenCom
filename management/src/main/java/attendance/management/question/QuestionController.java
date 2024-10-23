@@ -1,5 +1,6 @@
 package attendance.management.question;
 
+import attendance.management.utility.PageUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,19 +19,10 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
-    @GetMapping
-    public ResponseEntity<QuestionResponsePageDto> findAll(
-            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "10") int size) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        return ResponseEntity.ok(questionService.questionPage(pageable));
-    }
-
     @PostMapping("save")
     public ResponseEntity<Question> save(@RequestHeader("Authorization") String token, @Valid @RequestBody QuestionReqDto questionReqDto) {
         Question question = questionService.save(token, questionReqDto);
-        return ResponseEntity.status(200).body(question);
+        return ResponseEntity.ok(question);
     }
 
     @GetMapping("view/{idx}")
@@ -45,9 +37,7 @@ public class QuestionController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestHeader("Authorization") String token
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        QuestionResponsePageDto questionResponsePageDto = questionService.studentPage(pageable, token);
+        QuestionResponsePageDto questionResponsePageDto = questionService.studentPage(PageUtil.getPageable(pageNum, size), token);
         return ResponseEntity.ok(questionResponsePageDto);
     }
 
@@ -57,21 +47,17 @@ public class QuestionController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestHeader("Authorization") String token
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        QuestionResponsePageDto questionResponsePageDto = questionService.teacherPage(pageable, token);
+        QuestionResponsePageDto questionResponsePageDto = questionService.teacherPage(PageUtil.getPageable(pageNum, size), token);
         return ResponseEntity.ok(questionResponsePageDto);
     }
 
     @GetMapping("/manager")
     public ResponseEntity<QuestionResponsePageDto> managerFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestHeader("Authorization") String token
+            @RequestParam(name = "size", defaultValue = "10") int size
     ) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "idx");
-        Pageable pageable = PageRequest.of(pageNum, size, sort);
-        QuestionResponsePageDto questionResponsePageDto = questionService.managerPage(pageable);
+        QuestionResponsePageDto questionResponsePageDto = questionService.managerPage(PageUtil.getPageable(pageNum, size));
         return ResponseEntity.ok(questionResponsePageDto);
     }
+
 }
