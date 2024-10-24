@@ -1,15 +1,9 @@
-import './assets/main.css'
+import { createApp } from 'vue';
+import App from './App.vue';
+import store from './store';
+import router from './router';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-
-import App from './App.vue'
-import router from './router'
-import './index.css'
-
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+createApp(App)
+  .use(store) // Vuex 사용
+  .use(router) // Vue Router 사용
+  .mount('#app');

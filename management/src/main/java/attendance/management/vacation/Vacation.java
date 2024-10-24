@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -42,7 +41,7 @@ public class Vacation {
 
     private String phonecall;
 
-    private boolean accept;
+    private Boolean accept;
 
     private String hwpfile;
 

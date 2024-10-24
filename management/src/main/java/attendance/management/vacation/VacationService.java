@@ -5,8 +5,6 @@ import attendance.management.error.ErrorCode;
 import attendance.management.jwt.JWTManager;
 import attendance.management.userandlecture.UserAndLecture;
 import attendance.management.userandlecture.UserAndLectureRepository;
-import com.jacob.activeX.ActiveXComponent;
-import com.jacob.com.Dispatch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -14,22 +12,16 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.io.File;
-import java.nio.file.Files;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +45,6 @@ public class VacationService {
         vacation.setLecture(userAndLecture.get().getLecture());
         vacation.setUser(userAndLecture.get().getUser());
         vacation.setWdate(LocalDate.now());
-        vacation.setAccept(false);
         vacation.setStartdate(LocalDate.parse(vacationReqDto.getStartdate()));
         vacation.setEnddate(LocalDate.parse(vacationReqDto.getEnddate()));
         vacationRepository.save(vacation);
@@ -63,7 +54,11 @@ public class VacationService {
         vacationResponseDto.setUser(vacation.getUser().getName());
         vacationResponseDto.setLecture(vacation.getLecture().getTitle());
         vacationResponseDto.setWdate(vacation.getWdate().toString());
-        vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
+        if (vacation.getAccept() == null) {
+            vacationResponseDto.setAccept("대기중");
+        } else {
+            vacationResponseDto.setAccept(vacation.getAccept() ? "허가됨" : "반려됨");
+        }
         return vacationResponseDto;
     }
 
@@ -74,7 +69,11 @@ public class VacationService {
         vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
         vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
         vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
-        vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
+        if (vacation.getAccept() == null) {
+            vacationResponseDto.setAccept("대기중");
+        } else {
+            vacationResponseDto.setAccept(vacation.getAccept() ? "허가됨" : "반려됨");
+        }
         vacationResponseDto.setUser(vacation.getUser().getName());
         vacationResponseDto.setLecture(vacation.getLecture().getTitle());
 
@@ -82,8 +81,18 @@ public class VacationService {
     }
 
     public void accept(long idx) {
-        Vacation vacation = vacationRepository.findById(idx).orElseThrow(() -> new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        Vacation vacation = vacationRepository
+                .findById(idx)
+                .orElseThrow(() -> new BizException(ErrorCode.REQUEST_NOT_FOUND));
         vacation.setAccept(true);
+        vacationRepository.save(vacation);
+    }
+
+    public void deny(long idx) {
+        Vacation vacation = vacationRepository
+                .findById(idx)
+                .orElseThrow(() -> new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        vacation.setAccept(false);
         vacationRepository.save(vacation);
     }
 
@@ -140,7 +149,11 @@ public class VacationService {
                     vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
                     vacationResponseDto.setUser(vacation.getUser().getName());
                     vacationResponseDto.setLecture(vacation.getLecture().getTitle());
-                    vacationResponseDto.setAccept(vacation.isAccept() ? "허가됨" : "반려됨");
+                    if (vacation.getAccept() == null) {
+                        vacationResponseDto.setAccept("대기중");
+                    } else {
+                        vacationResponseDto.setAccept(vacation.getAccept() ? "허가됨" : "반려됨");
+                    }
                     return vacationResponseDto;
                 })
                 .collect(Collectors.toList());
@@ -151,5 +164,7 @@ public class VacationService {
 
         return vacationResponsePageDto;
     }
+
+
 }
 

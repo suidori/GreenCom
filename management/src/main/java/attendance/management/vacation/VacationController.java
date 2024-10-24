@@ -4,9 +4,6 @@ import attendance.management.utility.PageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -70,14 +67,20 @@ public class VacationController {
 
 
     @PostMapping("/accept/{idx}")
-    public ResponseEntity<String> accept(@PathVariable long idx) throws Exception {
+    public ResponseEntity<String> accept(@PathVariable("idx") long idx) throws Exception {
         vacationService.accept(idx);
         String hwpName = vacationService.newHWP(idx);
         return ResponseEntity.ok(hwpName);
     }
 
+    @PostMapping("/deny/{idx}")
+    public ResponseEntity<String> deny(@PathVariable("idx") long idx) {
+        vacationService.deny(idx);
+        return ResponseEntity.ok("휴가 요청 거부됨");
+    }
+
     @GetMapping("/download/hwp/{idx}")
-    public ResponseEntity<Resource> downloadHwpFile(@PathVariable long idx) throws IOException {
+    public ResponseEntity<Resource> downloadHwpFile(@PathVariable("idx") long idx) throws IOException {
 
         VacationFileDto vacationFileDto = vacationService.download(idx);
 

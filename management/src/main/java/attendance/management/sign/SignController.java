@@ -30,17 +30,16 @@ public class SignController {
         return "success";
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<String> redirectWithPost(
-            @RequestParam("userid") String userid,
-            @RequestParam("password") String password,
+            @RequestBody LoginReqDto loginReqDto,
             HttpServletResponse response) throws IOException {
 
-        User user = userRepository.findByUserid(userid).orElseThrow(
-                () -> new UsernameNotFoundException(userid)
+        User user = userRepository.findByUserid(loginReqDto.getUserid()).orElseThrow(
+                () -> new UsernameNotFoundException(loginReqDto.getUserid())
         );
 
-        boolean isMatch = passwordEncoder.matches(password, user.getPassword());
+        boolean isMatch = passwordEncoder.matches(loginReqDto.getPassword(), user.getPassword());
         if(isMatch){
             String jwt = jwtManager.createJWT(user.getUserid(), user.getIdx(), user.getRole());
             return ResponseEntity.ok(jwt);
