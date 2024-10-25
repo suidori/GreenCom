@@ -24,6 +24,17 @@ public class SignController {
     private final PasswordEncoder passwordEncoder;
     private final JWTManager jwtManager;
 
+    @GetMapping("/checkid")
+    public boolean checkId(@RequestParam("userid") String userid){
+        return userRepository.findByUserid(userid).isEmpty();
+    }
+
+    @GetMapping("/checkphone")
+    public boolean checkPhone(@RequestParam("phoneNumber") String phoneNumber){
+        System.out.println(phoneNumber);
+        return userRepository.findByPhoneNumber(phoneNumber).isEmpty();
+    }
+
     @PostMapping("/signin")
     public String join(@RequestBody JoinDto joinDto){
         signInService.join(joinDto);

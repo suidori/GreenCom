@@ -39,7 +39,7 @@ public class AttendanceService {
 
         attendance.setLecture(
                 userAndLectureRepository
-                        .findByUser(attendance.getUser())
+                        .findByUser_IdxAndState(attendance.getUser().getIdx(), 1)
                         .orElseThrow(() -> new BizException(ErrorCode.LECTURE_NOT_FOUND))
                         .getLecture()
         );

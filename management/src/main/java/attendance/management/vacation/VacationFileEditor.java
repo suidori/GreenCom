@@ -54,7 +54,7 @@ public class VacationFileEditor {
 
         int count = 1;
 
-        File directory = new File("/request_hwp");
+        File directory = new File("request_hwp");
         File[] files = directory.listFiles();
 
         if (files != null) {
